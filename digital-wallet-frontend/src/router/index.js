@@ -64,4 +64,22 @@ const routes = [
   }
 ]
 
-const router
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+// Navigation guard
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  
+  if (to.meta.requiresAuth && !userStore.isAuthenticated) {
+    next('/login')
+  } else if (to.name === 'login' && userStore.isAuthenticated) {
+    next('/dashboard')
+  } else {
+    next()
+  }
+})
+
+export default router
