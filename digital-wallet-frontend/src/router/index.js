@@ -11,13 +11,13 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/LoginPage.vue'),
+    component: () => import('@/views/AuthLayout.vue/LoginPage.vue'),
     meta: { requiresAuth: false }
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/RegisterPage.vue'),
+    component: () => import('@/views/AuthLayout.vue/RegisterPage.vue'),
     meta: { requiresAuth: false }
   },
   {
@@ -28,32 +28,32 @@ const routes = [
       {
         path: '',
         name: 'dashboard',
-        component: () => import('@/views/DashboardPage.vue')
+        component: () => import('@/views/DashboardLayout.vue/Router-View/DashboardPage.vue')
       },
       {
         path: '/wallet',
         name: 'wallet',
-        component: () => import('@/views/WalletPage.vue')
+        component: () => import('@/views/DashboardLayout.vue/Router-View/WalletPage.vue')
       },
       {
         path: '/transfer',
         name: 'transfer',
-        component: () => import('@/views/TransferPage.vue')
+        component: () => import('@/views/DashboardLayout.vue/Router-View/TransferPage.vue')
       },
       {
         path: '/merchants',
         name: 'merchants',
-        component: () => import('@/views/MerchantsPage.vue')
+        component: () => import('@/views/DashboardLayout.vue/Router-View/MerchantsPage.vue')
       },
       {
         path: '/transactions',
         name: 'transactions',
-        component: () => import('@/views/TransactionsPage.vue')
+        component: () => import('@/views/DashboardLayout.vue/Router-View/TransactionsPage.vue')
       },
       {
         path: '/profile',
         name: 'profile',
-        component: () => import('@/views/ProfilePage.vue')
+        component: () => import('@/views/DashboardLayout.vue/Router-View/ProfilePage.vue')
       }
     ]
   },
@@ -63,5 +63,4 @@ const routes = [
     component: () => import('@/views/NotFound.vue')
   }
 ]
-
 const router
