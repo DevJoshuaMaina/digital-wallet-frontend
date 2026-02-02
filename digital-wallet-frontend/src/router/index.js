@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
-const routes = [
+const routes = [ 
   {
     path: '/',
     name: 'landing',
@@ -11,49 +11,49 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/AuthLayout.vue/LoginPage.vue'),
+    component: () => import('@/views/LoginPage.vue'),
     meta: { requiresAuth: false }
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/AuthLayout.vue/RegisterPage.vue'),
+    component: () => import('@/views/RegisterPage.vue'),
     meta: { requiresAuth: false }
   },
   {
     path: '/dashboard',
-    component: () => import('@layouts/DashboardLayout.vue'),
+    component: () => import('@/layouts/DashboardLayout.vue'),
     meta: { requiresAuth: true },
     children: [
       {
         path: '',
         name: 'dashboard',
-        component: () => import('@/views/DashboardLayout.vue/Router-View/DashboardPage.vue')
+        component: () => import('@/views/DashboardPage.vue')
       },
       {
         path: '/wallet',
         name: 'wallet',
-        component: () => import('@/views/DashboardLayout.vue/Router-View/WalletPage.vue')
+        component: () => import('@/views/WalletPage.vue')
       },
       {
         path: '/transfer',
         name: 'transfer',
-        component: () => import('@/views/DashboardLayout.vue/Router-View/TransferPage.vue')
+        component: () => import('@/views/TransferPage.vue')
       },
       {
         path: '/merchants',
         name: 'merchants',
-        component: () => import('@/views/DashboardLayout.vue/Router-View/MerchantsPage.vue')
+        component: () => import('@/views/MerchantsPage.vue')
       },
       {
         path: '/transactions',
         name: 'transactions',
-        component: () => import('@/views/DashboardLayout.vue/Router-View/TransactionsPage.vue')
+        component: () => import('@/views/TransactionsPage.vue')
       },
       {
         path: '/profile',
         name: 'profile',
-        component: () => import('@/views/DashboardLayout.vue/Router-View/ProfilePage.vue')
+        component: () => import('@/views/ProfilePage.vue')
       }
     ]
   },
@@ -63,4 +63,5 @@ const routes = [
     component: () => import('@/views/NotFound.vue')
   }
 ]
+
 const router
