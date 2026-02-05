@@ -13,9 +13,10 @@ const apiClient = axios.create({
 //Request interceptor
 apiClient.interceptors.request.use(
     (config) => {
+        //Add auth token if available
         const userStore = useUserStore()
         if (userStore.isAuthenticated) {
-            //Add auth token if available
+            //config.headers.Authorization = `Bearer ${token}`            
         }
         return config
     },
