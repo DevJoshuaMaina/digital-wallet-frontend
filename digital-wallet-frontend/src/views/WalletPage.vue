@@ -15,21 +15,8 @@
     <BaseCard>
       <h3 class="text-lg font-semibold mb-4">Add Money</h3>
       <form @submit.prevent="handleAddMoney" class="space-y-4">
-        <BaseInput
-          v-model="addMoneyForm.amount"
-          type="number"
-          label="Amount"
-          :error="errors.amount"
-          placeholder="Enter amount to add"
-        />
-        
-        <BaseButton
-          type="submit"
-          variant="primary"
-          :loading="loading"
-        >
-          Add Money
-        </BaseButton>
+        <BaseInput v-model="addMoneyForm.amount" type="number" label="Amount" :error="errors.amount" placeholder="Enter amount to add" />
+        <BaseButton type="submit" variant="primary" :loading="loading">Add Money</BaseButton>
       </form>
     </BaseCard>
     
@@ -45,14 +32,7 @@
     <!-- Update Limit Modal -->
     <BaseModal :show="showLimitModal" title="Update Daily Limit" @close="showLimitModal = false">
       <form @submit.prevent="handleUpdateLimit" class="space-y-4">
-        <BaseInput
-          v-model="limitForm.limit"
-          type="number"
-          label="New Daily Limit"
-          :error="errors.limit"
-          placeholder="Enter new limit"
-        />
-        
+        <BaseInput v-model="limitForm.limit" type="number" label="New Daily Limit" :error="errors.limit" placeholder="Enter new limit"/>
         <div class="flex space-x-2">
           <BaseButton type="submit" variant="primary" :loading="loading">Update</BaseButton>
           <BaseButton variant="secondary" @click="showLimitModal = false">Cancel</BaseButton>
