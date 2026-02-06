@@ -107,7 +107,7 @@ import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseModal from '@/components/base/BaseModal.vue'
 import BaseLoader from '@/components/base/BaseLoader.vue'
-import TransactionItem from '@/components/TransactionItem.vue'
+import TransactionItem from '@/views/DashboardLayout.vue/Router-View/TransactionsPage.vue/TransactionItem.vue'
 
 const transactionStore = useTransactionStore()
 const userStore = useUserStore()

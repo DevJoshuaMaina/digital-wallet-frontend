@@ -13,8 +13,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import BaseCard from './base/BaseCard.vue'
-import BaseButton from './base/BaseButton.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const props = defineProps({
   wallet: { type: Object, required: true }

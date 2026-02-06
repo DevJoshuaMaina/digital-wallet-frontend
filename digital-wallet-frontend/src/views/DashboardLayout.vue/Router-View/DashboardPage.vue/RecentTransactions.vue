@@ -20,10 +20,10 @@
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
 import transactionApi from '@/services/transactionApi'
-import BaseCard from './base/BaseCard.vue'
-import BaseLoader from './base/BaseLoader.vue'
-import TransactionItem from './TransactionItem.vue'
-import EmptyState from './EmptyState.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseLoader from '@/components/base/BaseLoader.vue'
+import TransactionItem from '@/views/DashboardLayout.vue/Router-View/TransactionsPage.vue/TransactionItem.vue'
+import EmptyState from '@/components/EmptyState.vue'
 
 const userStore = useUserStore()
 const transactions = ref([])

@@ -2,7 +2,7 @@ import {defineStore} from 'pinia'
 import {ref} from 'vue'
 import transactionApi from '@/services/transactionApi'
 
-export const userTransactionStore = defineStore('transaction', () => {
+export const useTransactionStore = defineStore('transaction', () => {
     const transactions = ref([])
     const filters = ref({type: '', status: '', dateRange: ''})
     const pagination = ref({currentPage: 1, totalPages: 1})

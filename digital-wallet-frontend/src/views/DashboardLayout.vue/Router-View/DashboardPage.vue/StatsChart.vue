@@ -22,8 +22,8 @@
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
 import transactionApi from '@/services/transactionApi'
-import BaseCard from './base/BaseCard.vue'
-import BaseLoader from './base/BaseLoader.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseLoader from '@/components/base/BaseLoader.vue'
 import StatsCard from './StatsCard.vue'
 
 const userStore = useUserStore()
