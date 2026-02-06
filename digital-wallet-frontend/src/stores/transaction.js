@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {ref} from 'vue'
-import transactionApi from '@services/transactionApi'
+import transactionApi from '@/services/transactionApi'
 
 export const userTransactionStore = defineStore('transaction', () => {
     const transactions = ref([])
