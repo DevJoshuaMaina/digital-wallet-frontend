@@ -8,7 +8,7 @@
                 <BaseInput v-model="userData.email" label="Email" placeholder="Enter email" :error="errors.email"/>
                 <BaseInput v-model="userData.phoneNumber" type="tel" label="Phone Numner (Optional)" placeholder="Enter phone number"/>
                 <BaseInput v-model="userData.pin" type="password" label="PIN" placeholder="4-6 digit PIN" :error="errors.pin"/>
-                <BaseInput v-model="confirmPin" type="password" label="Confirm PIN" placeholder="Confirm username" :error="errors.confirmPin"/>
+                <BaseInput v-model="confirmPin" type="password" label="Confirm PIN" placeholder="Confirm PIN" :error="errors.confirmPin"/>
                 <BaseButton type="submit" :loading="loading" class="w-full mt-4">Register</BaseButton>
             </form>
             <p class="text-center mt-4">

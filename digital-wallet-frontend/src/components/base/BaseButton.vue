@@ -7,7 +7,7 @@
 
 <script setup>
 defineProps({
-    variant: {type: String, defaulty: 'primary'},
+    variant: {type: String, default: 'primary'},
     size: {type: String, default: 'md'},
     loading: {type: Boolean, default: false},
     disabled: {type: Boolean, default: false}
