@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import TopBar from '@/views/DashboardLayout.vue/Router-View/TopBar.vue'
-import Sidebar from '@/views/DashboardLayout.vue/Router-View/SideBar.vue'
-import MobileNav from '@/views/DashboardLayout.vue/Router-View/MobileNav.vue'
+import TopBar from '@/components/TopBar.vue'
+import Sidebar from '@/components/Sidebar.vue'
+import MobileNav from '@/components/MobileNav.vue'
 </script>
