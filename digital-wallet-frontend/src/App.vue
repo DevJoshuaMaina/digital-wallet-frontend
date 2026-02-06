@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <RouterView />
+    <router-view />
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
-</script>
+import { onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
 
-<style scoped>
-#app {
-  min-height: 100vh;
-}
-</style>
+const userStore = useUserStore()
+
+onMounted(() => {
+  userStore.loadFromStorage()
+})
+</script>
