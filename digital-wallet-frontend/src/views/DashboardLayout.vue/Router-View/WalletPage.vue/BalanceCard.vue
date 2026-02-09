@@ -11,7 +11,7 @@
 <script setup>
 import BaseCard from './base/BaseCard.vue'
 
-const props = defineProps({
+defineProps({
   wallet: { type: Object, required: true }
 })
 

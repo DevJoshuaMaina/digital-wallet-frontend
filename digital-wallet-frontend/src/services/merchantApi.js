@@ -7,11 +7,11 @@ export default {
     },
 
     getMerchantsByCategory(category) {
-        return apiClient.get(`${API_ENDPOINTS.MERCHANTS}/category/${category}`)
+        return apiClient.get(`${ API_ENDPOINTS.MERCHANTS }/category/${ category }`)
     },
 
     searchMerchants(query) {
-        return apiClient.get(`${API_ENDPOINTS.MERCHANTS}/search`, { params: { query } })
+        return apiClient.get(`${ API_ENDPOINTS.MERCHANTS }/search`, { params: { query } })
     },
 
     getMerchantByCode(code) {

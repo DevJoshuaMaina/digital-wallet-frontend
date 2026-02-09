@@ -11,6 +11,6 @@ export default {
     },
 
     setDailyLimit(walletId, limit) {
-        return apiClient.put(`${API_ENDPOINTS.WALLETS}/${walletId}/limit`, { limit })
+        return apiClient.put(`${ API_ENDPOINTS.WALLETS }/${ walletId}/limit`, { limit } )
     }
 }

@@ -8,7 +8,7 @@ export default {
 
     login(credentials){
         //Assuming a simple login endpoint; adjust if backend has one
-        return apiClient.post(`${API_ENDPOINTS.USERS}/login`, credentials)
+        return apiClient.post(`${ API_ENDPOINTS.USERS }/login`, credentials)
     },
 
     getUserByID(id) {
@@ -24,6 +24,6 @@ export default {
     },
 
     searchUsers(query){
-        return apiClient.get(`${API_ENDPOINTS.USERS}/search`, { params: { query } })
+        return apiClient.get(`${ API_ENDPOINTS.USERS }/search`, { params: { query } })
     }
 }

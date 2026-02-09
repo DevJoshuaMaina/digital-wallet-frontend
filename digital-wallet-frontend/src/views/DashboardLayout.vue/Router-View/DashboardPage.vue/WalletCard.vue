@@ -16,7 +16,7 @@ import { computed } from 'vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 
-const props = defineProps({
+defineProps({
   wallet: { type: Object, required: true }
 })
 

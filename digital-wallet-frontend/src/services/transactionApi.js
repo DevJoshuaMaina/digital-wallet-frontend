@@ -14,12 +14,8 @@ export default {
         return apiClient.get(API_ENDPOINTS.USER_TRANSACTIONS(userId), { params })
     },
 
-    getTransactions(userId, params) {
-        return apiClient.get(API_ENDPOINTS.USER_TRANSACTIONS(userId), { params })
-    },
-
     getTransactionsById(id) {
-        return apiClient.get(`${API_ENDPOINTS.TRANSACTIONS}/${id}`)
+        return apiClient.get(`${ API_ENDPOINTS.TRANSACTIONS }/${ id }`)
     },
 
     getTransactionStats(userId, dateRange) {
