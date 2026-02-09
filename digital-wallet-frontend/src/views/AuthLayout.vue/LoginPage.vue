@@ -7,9 +7,7 @@
         <BaseInput v-model="credentials.pin" type="password" label="PIN" placeholder="Enter PIN" :error="errors.pin"/>
         <BaseButton type="submit" :loading="loading" class="w-full mt-4">Login</BaseButton>
       </form>
-      <p class="text-center mt-4">
-        Don't have an account? <router-link to="/register" class="text-primary-600">Register</router-link>
-      </p>
+      <p class="text-center mt-4">Don't have an account? <router-link to="/register" class="text-primary-600">Register</router-link></p>
     </BaseCard>
   </div>
 </template>
@@ -38,10 +36,12 @@ const handleLogin = async () => {
     const response = await userApi.login(credentials.value)
     userStore.setUser(response.user)
     router.push('/dashboard')
-  } catch (error) {
+  } 
+  catch (error) {
     const err = handleApiError(error)
     errors.value = { general: err.message }
-  } finally {
+  } 
+  finally {
     loading.value = false
   }
 }
