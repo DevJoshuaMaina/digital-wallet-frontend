@@ -1,11 +1,11 @@
-import {defineStore} from 'pinia'
-import {ref} from 'vue'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 import transactionApi from '@/services/transactionApi'
 
 export const useTransactionStore = defineStore('transaction', () => {
     const transactions = ref([])
-    const filters = ref({type: '', status: '', dateRange: ''})
-    const pagination = ref({currentPage: 1, totalPages: 1})
+    const filters = ref({ type: '', status: '', dateRange: '' })
+    const pagination = ref({ currentPage: 1, totalPages: 1 })
     const loading = ref(false)
 
     async function fetchTransactions(userId, filters) {

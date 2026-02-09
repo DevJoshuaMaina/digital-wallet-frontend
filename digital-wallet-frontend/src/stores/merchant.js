@@ -13,9 +13,11 @@ export const useMerchantStore = defineStore('merchant', () => {
     try {
       const response = await merchantApi.getMerchants()
       merchants.value = response
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error fetching merchants:', error)
-    } finally {
+    } 
+    finally {
       loading.value = false
     }
   }
@@ -25,9 +27,11 @@ export const useMerchantStore = defineStore('merchant', () => {
     try {
       const response = await merchantApi.getMerchantsByCategory(category)
       merchants.value = response
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error fetching merchants by category:', error)
-    } finally {
+    } 
+    finally {
       loading.value = false
     }
   }
@@ -37,9 +41,11 @@ export const useMerchantStore = defineStore('merchant', () => {
     try {
       const response = await merchantApi.searchMerchants(query)
       merchants.value = response
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error searching merchants:', error)
-    } finally {
+    } 
+    finally {
       loading.value = false
     }
   }
