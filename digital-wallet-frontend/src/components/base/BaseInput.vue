@@ -9,7 +9,7 @@
 <script setup>
 import { computed } from 'vue'
 
-const props = defineProps({
+defineProps({
     modelValue: String,
     type: { type: String, default: 'text' },
     label: String,

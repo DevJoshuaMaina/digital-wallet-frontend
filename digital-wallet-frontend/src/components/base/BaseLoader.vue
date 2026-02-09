@@ -4,7 +4,7 @@
 
 <script setup>
     defineProps({
-        size: { type: String, default: 'md'}
+        size: { type: String, default: 'md' }
     })
 
     const sizeClasses = {

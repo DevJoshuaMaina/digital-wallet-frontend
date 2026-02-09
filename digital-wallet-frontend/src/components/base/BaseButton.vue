@@ -7,10 +7,10 @@
 
 <script setup>
 defineProps({
-    variant: {type: String, default: 'primary'},
-    size: {type: String, default: 'md'},
-    loading: {type: Boolean, default: false},
-    disabled: {type: Boolean, default: false}
+    variant: { type: String, default: 'primary' },
+    size: { type: String, default: 'md' },
+    loading: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false }
 })
 
 defineEmits(['click'])

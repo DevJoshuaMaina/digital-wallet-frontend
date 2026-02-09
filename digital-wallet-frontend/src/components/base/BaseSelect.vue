@@ -9,7 +9,7 @@
 
 <script setup>
     defineProps({
-        options: { type: Array, default: () => []},
+        options: { type: Array, default: () => [] },
         modelvalue: String,
         label: String
     })
