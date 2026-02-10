@@ -47,7 +47,8 @@ const confirmTransfer = async () => {
       pin: pin.value
     })
     emit('confirm')
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Transfer failed:', error)
   }
 }

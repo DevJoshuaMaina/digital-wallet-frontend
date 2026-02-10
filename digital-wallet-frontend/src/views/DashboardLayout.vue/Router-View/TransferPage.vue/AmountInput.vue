@@ -38,4 +38,4 @@ const formatInput = () => {
 watch(() => props.modelValue, (newVal) => {
   localValue.value = newVal
 })
-</script>
+</script> 

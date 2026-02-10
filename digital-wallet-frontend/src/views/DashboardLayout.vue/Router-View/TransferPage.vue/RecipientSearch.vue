@@ -1,14 +1,9 @@
 <template>
   <BaseCard>
-    <BaseInput
-      v-model="query"
-      label="Search by Username"
-      placeholder="Enter username"
-      @input="searchUsers"
-    />
+    <BaseInput v-model="query" label="Search by Username" placeholder="Enter username" @input="searchUsers"/>
     <div v-if="results.length" class="mt-4">
       <p class="font-semibold mb-2">Select Recipient:</p>
-      <div v-for="user in results" :key="user.id" class="p-2 border rounded mb-2 cursor-pointer hover:bg-gray-50" @click="$emit('select', user)">
+      <div v-for="user in results" :key="user.id" class="p-2 border rounded mb-2 cursor-pointer hover:bg-gray-50" @click="emit('select', user)">
         <p class="font-medium">{{ user.fullName }}</p>
         <p class="text-sm text-gray-500">{{ user.username }}</p>
       </div>

@@ -1,13 +1,6 @@
 <template>
   <div class="text-center">
-    <input
-      v-model="pin"
-      type="password"
-      maxlength="6"
-      class="text-2xl text-center border rounded-lg p-2 w-32"
-      placeholder="****"
-      @input="validatePin"
-    />
+    <input v-model="pin" type="password" maxlength="6" class="text-2xl text-center border rounded-lg p-2 w-32" placeholder="****" @input="validatePin"/>
     <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
   </div>
 </template>
