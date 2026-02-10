@@ -1,24 +1,9 @@
 <template>
   <BaseCard>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <BaseSelect
-        v-model="localFilters.type"
-        :options="typeOptions"
-        label="Transaction Type"
-        @update:modelValue="updateFilters"
-      />
-      <BaseSelect
-        v-model="localFilters.status"
-        :options="statusOptions"
-        label="Status"
-        @update:modelValue="updateFilters"
-      />
-      <BaseInput
-        v-model="localFilters.dateRange"
-        type="date"
-        label="Date Range"
-        @update:modelValue="updateFilters"
-      />
+      <BaseSelect v-model="localFilters.type" :options="typeOptions" label="Transaction Type" @update:modelValue="updateFilters"/>
+      <BaseSelect v-model="localFilters.status" :options="statusOptions" label="Status" @update:modelValue="updateFilters"/>
+      <BaseInput v-model="localFilters.dateRange" type="date" label="Date Range" @update:modelValue="updateFilters"/>
     </div>
   </BaseCard>
 </template>

@@ -1,15 +1,10 @@
 <template>
   <div>
-    <div v-if="loading" class="text-center py-8">
+    <div v-if="isLoading" class="text-center py-8">
       <BaseLoader />
     </div>
-    <div v-else-if="transactions.length">
-      <TransactionItem
-        v-for="transaction in transactions"
-        :key="transaction.id"
-        :transaction="transaction"
-        @click="$emit('transaction-click', transaction)"
-      />
+    <div v-else-if="hasTransactions">
+      <TransactionItem v-for="transaction in visibleTransactions" :key="transaction.id" :transaction="transaction" @click="$emit('transaction-click', transaction)"/>
     </div>
     <EmptyState v-else message="No transactions found" icon="📭" />
   </div>
@@ -25,6 +20,10 @@ const props = defineProps({
   transactions: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false }
 })
+
+const isLoading = computed(() => props.loading)
+const visibleTransactions = computed(() => props.transactions)
+const hasTransactions = computed(() => visibleTransactions.value.length > 0)
 
 defineEmits(['transaction-click'])
 </script>
