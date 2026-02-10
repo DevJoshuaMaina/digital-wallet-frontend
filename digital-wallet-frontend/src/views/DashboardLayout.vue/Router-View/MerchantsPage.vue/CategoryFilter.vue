@@ -6,25 +6,33 @@
       :variant="selectedCategory === category ? 'primary' : 'secondary'"
       @click="selectCategory(category)"
     >
-      {{ category }}
+      {{ formatCategoryLabel(category) }}
     </BaseButton>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useMerchantStore } from '@/stores/merchant'
 import BaseButton from './base/BaseButton.vue'
 
 const emit = defineEmits(['change'])
 
 const merchantStore = useMerchantStore()
-const selectedCategory = ref('All')
-
-const categories = ['All', 'Food', 'Retail', 'Utilities']
+const { categories, selectedCategory } = storeToRefs(merchantStore)
 
 const selectCategory = (category) => {
   selectedCategory.value = category
   emit('change', category)
+}
+
+const formatCategoryLabel = (category) => {
+  if (!category) return ''
+  if (category === 'All') return 'All'
+  return category
+    .toLowerCase()
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
 }
 </script>

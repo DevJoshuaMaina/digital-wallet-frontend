@@ -40,9 +40,11 @@ const handlePayment = async () => {
       pin: pin.value
     })
     emit('success')
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Payment failed:', error)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
