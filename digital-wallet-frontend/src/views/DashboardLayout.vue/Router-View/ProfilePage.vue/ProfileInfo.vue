@@ -13,7 +13,7 @@
 <script setup>
 import BaseCard from './base/BaseCard.vue'
 
-const props = defineProps({
+defineProps({
   user: { type: Object, required: true }
 })
 
