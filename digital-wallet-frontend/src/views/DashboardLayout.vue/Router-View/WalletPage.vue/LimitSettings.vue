@@ -6,12 +6,7 @@
       <p>Remaining: ₦{{ formatBalance(wallet.dailyLimit - wallet.spentToday) }}</p>
     </div>
     <form @submit.prevent="updateLimit">
-      <BaseInput
-        v-model="newLimit"
-        type="number"
-        label="New Daily Limit"
-        placeholder="Enter new limit"
-      />
+      <BaseInput v-model="newLimit" type="number" label="New Daily Limit" placeholder="Enter new limit"/>
       <BaseButton type="submit" :loading="loading" class="mt-4">Update Limit</BaseButton>
     </form>
   </BaseCard>
@@ -40,9 +35,11 @@ const updateLimit = async () => {
   try {
     await walletApi.setDailyLimit(userStore.wallet.id, parseFloat(newLimit.value))
     emit('update')
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error updating limit:', error)
-  } finally {
+  } 
+  finally {
     loading.value = false
   }
 }

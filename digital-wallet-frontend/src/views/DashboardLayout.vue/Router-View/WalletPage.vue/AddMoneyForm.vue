@@ -1,23 +1,9 @@
 <template>
   <BaseCard title="Add Money">
     <form @submit.prevent="handleSubmit">
-      <BaseInput
-        v-model="amount"
-        type="number"
-        label="Amount"
-        placeholder="Enter amount"
-        :error="errors.amount"
-      />
-      <BaseSelect
-        v-model="paymentMethod"
-        :options="paymentOptions"
-        label="Payment Method"
-      />
-      <BaseInput
-        v-model="description"
-        label="Description"
-        placeholder="Optional description"
-      />
+      <BaseInput v-model="amount" type="number" label="Amount" placeholder="Enter amount" :error="errors.amount"/>
+      <BaseSelect v-model="paymentMethod" :options="paymentOptions" label="Payment Method"/>
+      <BaseInput v-model="description" label="Description" placeholder="Optional description"/>
       <BaseButton type="submit" :loading="loading" class="w-full mt-4">Add Money</BaseButton>
     </form>
   </BaseCard>
@@ -60,10 +46,12 @@ const handleSubmit = async () => {
       description: description.value
     })
     emit('success')
-  } catch (error) {
+  } 
+  catch (error) {
     const err = handleApiError(error)
     errors.value.amount = err.message
-  } finally {
+  } 
+  finally {
     loading.value = false
   }
 }
