@@ -34,9 +34,11 @@ onMounted(async () => {
   try {
     const response = await transactionApi.getTransactionStats(userStore.currentUser.id)
     stats.value = response
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error fetching stats:', error)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 })

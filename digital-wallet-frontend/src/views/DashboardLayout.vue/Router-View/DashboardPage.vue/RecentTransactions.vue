@@ -4,12 +4,7 @@
       <BaseLoader />
     </div>
     <div v-else-if="transactions.length">
-      <TransactionItem
-        v-for="transaction in transactions"
-        :key="transaction.id"
-        :transaction="transaction"
-        @click="viewTransaction"
-      />
+      <TransactionItem v-for="transaction in transactions" :key="transaction.id" :transaction="transaction" @click="viewTransaction"/>
       <router-link to="/transactions" class="text-primary-600 mt-4 block text-center">View All</router-link>
     </div>
     <EmptyState v-else message="No recent transactions" icon="📭" />
@@ -33,9 +28,11 @@ onMounted(async () => {
   try {
     const response = await transactionApi.getTransactions(userStore.currentUser.id, { limit: 5 })
     transactions.value = response
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error fetching recent transactions:', error)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 })

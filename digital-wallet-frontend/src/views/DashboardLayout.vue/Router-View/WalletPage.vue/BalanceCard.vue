@@ -1,7 +1,7 @@
 <template>
   <BaseCard>
     <div class="text-center">
-      <h3 class="text-3xl font-bold text-primary-600 mb-2">₦{{ formatBalance(wallet.balance) }}</h3>
+      <h3 class="text-3xl font-bold text-primary-600 mb-2">?{{ formattedBalance }}</h3>
       <p class="text-gray-600">Current Balance</p>
       <p class="text-sm text-gray-500 mt-2">Wallet: {{ wallet.walletNumber }}</p>
     </div>
@@ -9,13 +9,16 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import BaseCard from './base/BaseCard.vue'
 
-defineProps({
+const props = defineProps({
   wallet: { type: Object, required: true }
 })
 
-const formatBalance = (balance) => {
-  return new Intl.NumberFormat('en-NG').format(balance)
-}
+const formattedBalance = computed(() =>
+  new Intl.NumberFormat('en-NG').format(props.wallet.balance)
+)
 </script>
+
+
