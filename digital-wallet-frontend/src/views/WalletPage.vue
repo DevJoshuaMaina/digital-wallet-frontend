@@ -75,10 +75,12 @@ async function handleAddMoney() {
     await walletApi.addMoney(userStore.wallet.id, addMoneyForm.value)
     userStore.setWallet({ ...userStore.wallet, balance: userStore.balance + parseFloat(addMoneyForm.value.amount) })
     addMoneyForm.value.amount = ''
-  } catch (error) {
+  }
+  catch (error) {
     const apiError = handleApiError(error)
     errors.value = { amount: apiError.message }
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -92,10 +94,12 @@ async function handleUpdateLimit() {
     userStore.setWallet({ ...userStore.wallet, dailyLimit: parseFloat(limitForm.value.limit) })
     showLimitModal.value = false
     limitForm.value.limit = ''
-  } catch (error) {
+  }
+  catch (error) {
     const apiError = handleApiError(error)
     errors.value = { limit: apiError.message }
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }

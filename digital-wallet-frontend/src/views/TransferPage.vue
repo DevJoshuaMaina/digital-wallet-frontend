@@ -5,7 +5,7 @@
     <!-- Step 1: Recipient Search -->
     <BaseCard>
       <h3 class="text-lg font-semibold mb-4">Find Recipient</h3>
-      <BaseInput v-model="recipientQuery" label="Username" placeholder="Enter recipient username" @input="searchRecipient"/>
+      <BaseInput v-model="recipientQuery" label="Username" placeholder="Enter recipient username" :error="errors.recipient" @input="searchRecipient"/>
       <div v-if="recipient" class="mt-4 p-4 bg-gray-50 rounded-lg">
         <p class="font-medium">{{ recipient.fullName }}</p>
         <p class="text-sm text-gray-600">@{{ recipient.username }}</p>
@@ -61,8 +61,12 @@ async function searchRecipient() {
   try {
     const response = await userApi.getUserByUsername(recipientQuery.value)
     recipient.value = response.data
-  } catch (error) {
+    errors.value = { ...errors.value, recipient: '' }
+  }
+  catch (error) {
+    const apiError = handleApiError(error)
     recipient.value = null
+    errors.value = { ...errors.value, recipient: apiError.message }
   }
 }
 
@@ -98,10 +102,12 @@ async function handleTransfer() {
     recipientQuery.value = ''
     transferForm.value = { amount: '', pin: '' }
     
-  } catch (error) {
+  }
+  catch (error) {
     const apiError = handleApiError(error)
     errors.value = { pin: apiError.message }
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }

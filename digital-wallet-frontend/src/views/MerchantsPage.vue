@@ -8,15 +8,7 @@
       
       <!-- Category Filter -->
       <div class="flex space-x-2 mb-4 overflow-x-auto">
-        <button
-          v-for="category in merchantStore.categories"
-          :key="category"
-          @click="selectCategory(category)"
-          :class="selectedCategory === category ? 'btn-primary' : 'btn-secondary'"
-          class="whitespace-nowrap"
-        >
-          {{ category.replace('_', ' ') }}
-        </button>
+        <button v-for="category in merchantStore.categories" :key="category" @click="selectCategory(category)" :class="selectedCategory === category ? 'btn-primary' : 'btn-secondary'" class="whitespace-nowrap">{{ category.replace('_', ' ') }}</button>
       </div>
       
       <!-- Merchants Grid -->
@@ -25,12 +17,7 @@
       </div>
       
       <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div
-          v-for="merchant in merchantStore.merchants"
-          :key="merchant.id"
-          @click="selectMerchant(merchant)"
-          class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer"
-        >
+        <div v-for="merchant in merchantStore.merchants" :key="merchant.id" @click="selectMerchant(merchant)" class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
           <div class="flex items-center space-x-3">
             <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
               <span class="text-xl">🏪</span>
@@ -51,7 +38,6 @@
           <h4 class="text-lg font-semibold">{{ selectedMerchant.merchantName }}</h4>
           <p class="text-sm text-gray-600">{{ selectedMerchant.category.replace('_', ' ') }}</p>
         </div>
-        
         <form @submit.prevent="handlePayment" class="space-y-4">
           <BaseInput v-model="paymentForm.amount" type="number" label="Amount" :error="errors.amount" placeholder="Enter amount"/>
           <BaseInput v-model="paymentForm.pin" type="password" label="PIN" :error="errors.pin" placeholder="4-digit PIN"/>
@@ -93,7 +79,8 @@ function selectCategory(category) {
   selectedCategory.value = category
   if (category === 'ALL') {
     merchantStore.fetchMerchants()
-  } else {
+  }
+  else {
     merchantStore.fetchMerchantsByCategory(category)
   }
 }
@@ -131,10 +118,12 @@ async function handlePayment() {
     })
     
     closePaymentModal()
-  } catch (error) {
+  }
+  catch (error) {
     const apiError = handleApiError(error)
     errors.value = { pin: apiError.message }
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }

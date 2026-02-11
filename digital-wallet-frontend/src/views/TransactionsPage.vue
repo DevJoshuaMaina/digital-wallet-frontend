@@ -6,21 +6,9 @@
     <BaseCard>
       <h3 class="text-lg font-semibold mb-4">Filters</h3>
       <div class="grid md:grid-cols-4 gap-4">
-        <BaseInput
-          v-model="filters.type"
-          label="Type"
-          placeholder="All types"
-        />
-        <BaseInput
-          v-model="filters.startDate"
-          type="date"
-          label="From Date"
-        />
-        <BaseInput
-          v-model="filters.endDate"
-          type="date"
-          label="To Date"
-        />
+        <BaseInput v-model="filters.type" label="Type" placeholder="All types"/>
+        <BaseInput v-model="filters.startDate" type="date" label="From Date"/>
+        <BaseInput v-model="filters.endDate" type="date" label="To Date"/>
         <div class="flex items-end">
           <BaseButton @click="applyFilters" variant="primary">Apply Filters</BaseButton>
         </div>
@@ -32,38 +20,17 @@
       <div v-if="transactionStore.loading" class="text-center py-8">
         <BaseLoader />
       </div>
-      
       <div v-else-if="transactionStore.transactions.length === 0" class="text-center py-8 text-gray-500">
         No transactions found
       </div>
-      
       <div v-else>
-        <TransactionItem 
-          v-for="transaction in transactionStore.transactions" 
-          :key="transaction.id"
-          :transaction="transaction"
-          @click="viewTransaction(transaction)"
-        />
+        <TransactionItem v-for="transaction in transactionStore.transactions" :key="transaction.id" :transaction="transaction" @click="viewTransaction(transaction)"/>
         
         <!-- Pagination -->
         <div class="mt-6 flex justify-center">
-          <BaseButton 
-            v-if="transactionStore.pagination.page > 0"
-            @click="changePage(transactionStore.pagination.page - 1)"
-            variant="secondary"
-          >
-            Previous
-          </BaseButton>
-          <span class="mx-4 py-2">
-            Page {{ transactionStore.pagination.page + 1 }} of {{ transactionStore.pagination.totalPages }}
-          </span>
-          <BaseButton 
-            v-if="!transactionStore.pagination.last"
-            @click="changePage(transactionStore.pagination.page + 1)"
-            variant="secondary"
-          >
-            Next
-          </BaseButton>
+          <BaseButton v-if="transactionStore.pagination.page > 0" @click="changePage(transactionStore.pagination.page - 1)" variant="secondary">Previous</BaseButton>
+          <span class="mx-4 py-2">Page {{ transactionStore.pagination.page + 1 }} of {{ transactionStore.pagination.totalPages }}</span>
+          <BaseButton v-if="!transactionStore.pagination.last" @click="changePage(transactionStore.pagination.page + 1)" variant="secondary">Next</BaseButton>
         </div>
       </div>
     </BaseCard>

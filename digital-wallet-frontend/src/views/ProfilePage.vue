@@ -33,36 +33,10 @@
     <BaseCard>
       <h3 class="text-lg font-semibold mb-4">Edit Profile</h3>
       <form @submit.prevent="handleUpdateProfile" class="space-y-4">
-        <BaseInput
-          v-model="profileForm.fullName"
-          label="Full Name"
-          :error="errors.fullName"
-          placeholder="Enter your full name"
-        />
-        
-        <BaseInput
-          v-model="profileForm.email"
-          type="email"
-          label="Email"
-          :error="errors.email"
-          placeholder="Enter your email"
-        />
-        
-        <BaseInput
-          v-model="profileForm.phoneNumber"
-          type="tel"
-          label="Phone Number"
-          :error="errors.phoneNumber"
-          placeholder="Enter your phone number"
-        />
-        
-        <BaseButton
-          type="submit"
-          variant="primary"
-          :loading="loading"
-        >
-          Update Profile
-        </BaseButton>
+        <BaseInput v-model="profileForm.fullName" label="Full Name" :error="errors.fullName" placeholder="Enter your full name"/>
+        <BaseInput v-model="profileForm.email" type="email" label="Email" :error="errors.email" placeholder="Enter your email"/>
+        <BaseInput v-model="profileForm.phoneNumber" type="tel" label="Phone Number" :error="errors.phoneNumber" placeholder="Enter your phone number"/>
+        <BaseButton type="submit" variant="primary" :loading="loading">Update Profile</BaseButton>
       </form>
     </BaseCard>
     
@@ -118,14 +92,17 @@ async function handleUpdateProfile() {
   try {
     const response = await userApi.updateUser(userStore.currentUser.id, profileForm.value)
     userStore.setUser(response.data)
-  } catch (error) {
+  }
+  catch (error) {
     const apiError = handleApiError(error)
     if (apiError.data && typeof apiError.data === 'object') {
       errors.value = apiError.data
-    } else {
+    }
+    else {
       errors.value = { general: apiError.message }
     }
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -134,4 +111,4 @@ function handleLogout() {
   userStore.logout()
   router.push('/login')
 }
-</script>
+</script> 
