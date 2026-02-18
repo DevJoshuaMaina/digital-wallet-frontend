@@ -1,1 +1,0 @@
-import{a as e,A as t}from"./BaseCard-c34KdX1w.js";const a={register(r){return e.post(t.USERS,r)},login(r){return e.post(`${t.USERS}/login`,r)},getUserByID(r){return e.get(t.USER_BY_ID(r))},getUserByUsername(r){return e.get(t.USER_BY_USERNAME(r))},updateUser(r,s){return e.put(t.USER_BY_ID(r),s)},searchUsers(r){return e.get(`${t.USERS}/search`,{params:{query:r}})}};export{a as u};

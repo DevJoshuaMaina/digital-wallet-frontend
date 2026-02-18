@@ -1,1 +1,0 @@
-function s(e){return e.response?{message:e.response.data.message||"An error occured",status:e.response.status,data:e.response.data}:e.request?{message:"No response from server. Please check your connection.",status:0}:{message:e.message||"An unexpected error occured",status:0}}export{s as h};
