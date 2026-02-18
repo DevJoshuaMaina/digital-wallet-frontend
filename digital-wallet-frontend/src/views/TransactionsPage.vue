@@ -1,12 +1,14 @@
 <template>
   <div class="space-y-6">
     <h1 class="text-2xl font-bold">Transaction History</h1>
+    <BaseAlert v-if="transactionStore.error" type="error" :message="transactionStore.error" />
     
     <!-- Filters -->
     <BaseCard>
       <h3 class="text-lg font-semibold mb-4">Filters</h3>
-      <div class="grid md:grid-cols-4 gap-4">
+      <div class="grid md:grid-cols-5 gap-4">
         <BaseInput v-model="filters.type" label="Type" placeholder="All types"/>
+        <BaseInput v-model="filters.status" label="Status" placeholder="All statuses"/>
         <BaseInput v-model="filters.startDate" type="date" label="From Date"/>
         <BaseInput v-model="filters.endDate" type="date" label="To Date"/>
         <div class="flex items-end">
@@ -20,9 +22,7 @@
       <div v-if="transactionStore.loading" class="text-center py-8">
         <BaseLoader />
       </div>
-      <div v-else-if="transactionStore.transactions.length === 0" class="text-center py-8 text-gray-500">
-        No transactions found
-      </div>
+      <EmptyState v-else-if="transactionStore.transactions.length === 0" message="No transactions found" icon="📭" />
       <div v-else>
         <TransactionItem v-for="transaction in transactionStore.transactions" :key="transaction.id" :transaction="transaction" @click="viewTransaction(transaction)"/>
         
@@ -74,27 +74,33 @@ import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseModal from '@/components/base/BaseModal.vue'
 import BaseLoader from '@/components/base/BaseLoader.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
+import EmptyState from '@/components/EmptyState.vue'
 import TransactionItem from '@/views/DashboardLayout.vue/Router-View/TransactionsPage.vue/TransactionItem.vue'
 
 const transactionStore = useTransactionStore()
 const userStore = useUserStore()
 
-const filters = ref({ type: '', startDate: '', endDate: '' })
+const filters = ref({ type: '', status: '', startDate: '', endDate: '' })
 const selectedTransaction = ref(null)
 const showDetailsModal = ref(false)
 
 onMounted(async () => {
   if (userStore.currentUser) {
     await transactionStore.fetchTransactions(userStore.currentUser.id)
+  } else {
+    transactionStore.error = 'User session not found. Please login again.'
   }
 })
 
 function applyFilters() {
+  if (!userStore.currentUser?.id) return
   transactionStore.setFilters(filters.value)
   transactionStore.fetchTransactions(userStore.currentUser.id, filters.value)
 }
 
 function changePage(page) {
+  if (!userStore.currentUser?.id) return
   transactionStore.pagination.page = page
   transactionStore.fetchTransactions(userStore.currentUser.id, filters.value)
 }

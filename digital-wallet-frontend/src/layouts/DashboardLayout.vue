@@ -4,7 +4,7 @@
     <div class="flex">
       <Sidebar class="hidden md:block" />
       <MobileNav class="md:hidden" />
-      <main class="flex-1 p-6">
+      <main class="flex-1 p-4 md:p-6 pb-24 md:pb-6">
         <router-view />
       </main>
     </div>

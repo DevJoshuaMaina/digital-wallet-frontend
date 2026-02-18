@@ -3,6 +3,7 @@
     <div v-if="loading" class="text-center py-4">
       <BaseLoader />
     </div>
+    <BaseAlert v-else-if="errorMessage" type="error" :message="errorMessage" />
     <div v-else class="space-y-4">
       <!-- Placeholder for chart; replace with Chart.js if needed -->
       <div class="bg-gray-100 p-4 rounded-lg text-center">
@@ -24,19 +25,32 @@ import { useUserStore } from '@/stores/user'
 import transactionApi from '@/services/transactionApi'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseLoader from '@/components/base/BaseLoader.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
 import StatsCard from './StatsCard.vue'
 
 const userStore = useUserStore()
 const stats = ref({ sent: 0, received: 0, monthly: '' })
 const loading = ref(true)
+const errorMessage = ref('')
 
 onMounted(async () => {
+  const userId = userStore.currentUser?.id
+  if (!userId) {
+    loading.value = false
+    return
+  }
+
   try {
-    const response = await transactionApi.getTransactionStats(userStore.currentUser.id)
-    stats.value = response
+    const response = await transactionApi.getTransactionStats(userId)
+    const normalizedStats = response?.data || response || {}
+    stats.value = {
+      sent: normalizedStats.sent ?? 0,
+      received: normalizedStats.received ?? 0,
+      monthly: normalizedStats.monthly || ''
+    }
   }
   catch (error) {
-    console.error('Error fetching stats:', error)
+    errorMessage.value = 'Unable to load transaction stats.'
   }
   finally {
     loading.value = false

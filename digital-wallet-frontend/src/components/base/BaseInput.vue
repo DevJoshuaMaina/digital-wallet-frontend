@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref } from 'vue'
 
 defineProps({
     modelValue: String,
@@ -17,7 +17,7 @@ defineProps({
     placeholder: String
 })
 
-const id = computed(() => `input-${Math.random().toString(36).substr(2, 9)}`)
+const id = ref(`input-${Math.random().toString(36).slice(2, 11)}`)
 
 defineEmits(['update:modelValue'])
 </script>

@@ -5,6 +5,7 @@ export const useUserStore = defineStore('user', () => {
     //State
     const currentUser = ref(null)
     const wallet = ref(null)
+    const token = ref('')
     const isAuthenticated = ref(false)
 
     //Getters
@@ -14,38 +15,62 @@ export const useUserStore = defineStore('user', () => {
     //Actions
     function setUser(user) {
         currentUser.value = user
-        wallet.value = user.wallet
-        isAuthenticated.value = true
-        localStorage.setItem('user', JSON.stringify(user))
+        wallet.value = user?.wallet || null
+        isAuthenticated.value = Boolean(currentUser.value || token.value)
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user))
+        }
     }
 
     function setWallet(walletData) {
         wallet.value = walletData
     }
 
+    function setToken(authToken) {
+        token.value = authToken || ''
+        if (token.value) {
+            localStorage.setItem('token', token.value)
+        }
+        else {
+            localStorage.removeItem('token')
+        }
+        isAuthenticated.value = Boolean(currentUser.value || token.value)
+    }
+
     function logout() {
         currentUser.value = null
         wallet.value = null
+        token.value = ''
         isAuthenticated.value = false
         localStorage.removeItem('user')
+        localStorage.removeItem('token')
     }
 
     function loadFromStorage() {
-        const stored = localStorage.getItem('user')
-        if (stored) {
-            const user = JSON.parse(stored)
-            setUser(user)
+        const storedUser = localStorage.getItem('user')
+        const storedToken = localStorage.getItem('token')
+
+        if (storedToken) {
+            token.value = storedToken
         }
+        if (storedUser) {
+            const user = JSON.parse(storedUser)
+            currentUser.value = user
+            wallet.value = user?.wallet || null
+        }
+        isAuthenticated.value = Boolean(currentUser.value || token.value)
     }
 
     return {
         currentUser,
         wallet,
+        token,
         isAuthenticated,
         userName,
         balance,
         setUser,
         setWallet,
+        setToken,
         logout,
         loadFromStorage
     }

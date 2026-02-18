@@ -2,8 +2,16 @@ import apiClient from "./api"
 import { API_ENDPOINTS } from "@/config/api"
 
 export default {
-    register(userData) {
-        return apiClient.post(API_ENDPOINTS.USERS, userData)
+    async register(userData) {
+        try {
+            return await apiClient.post(API_ENDPOINTS.USERS, userData)
+        }
+        catch (error) {
+            if (error.response?.status === 404 || error.response?.status === 405 || error.response?.status === 403) {
+                return apiClient.post(`${ API_ENDPOINTS.USERS }/register`, userData)
+            }
+            throw error
+        }
     },
 
     login(credentials){

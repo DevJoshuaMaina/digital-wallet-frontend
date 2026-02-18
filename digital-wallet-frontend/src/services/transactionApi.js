@@ -19,6 +19,6 @@ export default {
     },
 
     getTransactionStats(userId, dateRange) {
-        return apiClient.get(API_ENDPOINTS.TRANSACTION_STATS(userId, { params: { dateRange } }))
+        return apiClient.get(API_ENDPOINTS.TRANSACTION_STATS(userId), { params: { dateRange } })
     }
 }

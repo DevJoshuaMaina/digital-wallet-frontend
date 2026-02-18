@@ -22,6 +22,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useToastStore } from '@/stores/toast'
 import WalletCard from '@/views/DashboardLayout.vue/Router-View/DashboardPage.vue/WalletCard.vue'
 import QuickActionButton from '@/views/DashboardLayout.vue/Router-View/DashboardPage.vue/QuickActions.vue'
 import RecentTransactions from '@/views/DashboardLayout.vue/Router-View/DashboardPage.vue/RecentTransactions.vue'
@@ -29,6 +30,7 @@ import StatsChart from '@/views/DashboardLayout.vue/Router-View/DashboardPage.vu
 
 const router = useRouter()
 const userStore = useUserStore()
+const toastStore = useToastStore()
 
 const showAddMoney = () => {
   router.push('/wallet')
@@ -43,6 +45,6 @@ const goToMerchants = () => {
 }
 
 const goToRequest = () => {
-  // Placeholder for request money feature
+  toastStore.info('Request money feature is coming soon.')
 }
 </script>

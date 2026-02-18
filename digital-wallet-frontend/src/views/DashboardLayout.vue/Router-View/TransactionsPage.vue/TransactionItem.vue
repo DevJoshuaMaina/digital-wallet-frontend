@@ -23,7 +23,7 @@ const props = defineProps({
 const icon = computed(() => (props.transaction.type === 'credit' ? '+' : '-'))
 
 const formattedDate = computed(() =>
-  new Date(props.transaction.date).toLocaleDateString()
+  new Date(props.transaction.date || props.transaction.timestamp || props.transaction.createdAt).toLocaleDateString()
 )
 
 const formattedAmount = computed(() =>
