@@ -3,10 +3,10 @@
     <h3 class="text-lg font-semibold mb-4">Confirm Transfer</h3>
     <div class="mb-4">
       <p><strong>To:</strong> {{ recipient.fullName }}</p>
-      <p><strong>Amount:</strong> ₦{{ formatAmount(amount) }}</p>
+      <p><strong>Amount:</strong> NGN {{ formatAmount(amount) }}</p>
       <p><strong>Description:</strong> {{ description || 'No description' }}</p>
-      <p><strong>Fee:</strong> ₦0.00</p>
-      <p><strong>Total:</strong> ₦{{ formatAmount(amount) }}</p>
+      <p><strong>Fee:</strong> NGN 0.00</p>
+      <p><strong>Total:</strong> NGN {{ formatAmount(amount) }}</p>
     </div>
     <PinInput @complete="pin = $event" />
     <div class="flex gap-4 mt-4">
@@ -19,11 +19,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useTransactionStore } from '@/stores/transaction'
-import BaseCard from './base/BaseCard.vue'
-import BaseButton from './base/BaseButton.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 import PinInput from './PinInput.vue'
 
-const emit = defineEmits(['confirm', 'cancel'])
+const emit = defineEmits(['confirm', 'cancel', 'error'])
 
 const props = defineProps({
   recipient: { type: Object, required: true },
@@ -35,7 +35,7 @@ const transactionStore = useTransactionStore()
 const pin = ref('')
 
 const formatAmount = (amount) => {
-  return new Intl.NumberFormat('en-NG').format(amount)
+  return new Intl.NumberFormat('en-NG').format(Number(amount || 0))
 }
 
 const confirmTransfer = async () => {
@@ -47,9 +47,9 @@ const confirmTransfer = async () => {
       pin: pin.value
     })
     emit('confirm')
-  } 
+  }
   catch (error) {
-    console.error('Transfer failed:', error)
+    emit('error', error)
   }
 }
 </script>

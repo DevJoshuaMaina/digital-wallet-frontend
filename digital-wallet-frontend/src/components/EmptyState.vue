@@ -11,7 +11,7 @@ import BaseButton from './base/BaseButton.vue'
 
 defineProps({
   message: { type: String, required: true },
-  icon: { type: String, default: '📭' },
+  icon: { type: String, default: 'N/A' },
   actionLabel: String
 })
 

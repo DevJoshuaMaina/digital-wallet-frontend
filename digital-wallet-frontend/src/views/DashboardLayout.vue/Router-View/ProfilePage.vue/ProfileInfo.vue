@@ -11,13 +11,16 @@
 </template>
 
 <script setup>
-import BaseCard from './base/BaseCard.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
 
 defineProps({
   user: { type: Object, required: true }
 })
 
 const formatDate = (date) => {
-  return new Date(date).toLocaleDateString()
+  if (!date) return 'N/A'
+  const parsed = new Date(date)
+  return Number.isNaN(parsed.getTime()) ? 'N/A' : parsed.toLocaleDateString()
 }
 </script>
+

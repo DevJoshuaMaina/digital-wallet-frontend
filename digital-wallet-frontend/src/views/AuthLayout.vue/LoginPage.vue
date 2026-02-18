@@ -53,11 +53,22 @@ const handleLogin = async () => {
     const response = await userApi.login(credentials.value)
     const token = response?.token || response?.data?.token
     const usernameFromResponse = response?.username || response?.data?.username || credentials.value.username
+    const idFromResponse = response?.id || response?.userId || response?.data?.id || response?.data?.userId
     if (token) {
       userStore.setToken(token)
     }
 
     let user = response?.user || response?.data?.user
+    if (!user && idFromResponse) {
+      try {
+        const userProfileById = await userApi.getUserByID(idFromResponse)
+        user = userProfileById?.data || userProfileById?.user || userProfileById
+      }
+      catch {
+        // Try username lookup fallback below.
+      }
+    }
+
     if (!user && usernameFromResponse) {
       try {
         const userProfile = await userApi.getUserByUsername(usernameFromResponse)
@@ -72,9 +83,15 @@ const handleLogin = async () => {
 
     if (!user) {
       user = {
+        id: idFromResponse || null,
         username: usernameFromResponse,
         fullName: usernameFromResponse
       }
+    }
+    else {
+      user.id = user.id ?? user.userId ?? idFromResponse ?? null
+      user.username = user.username || user.userName || usernameFromResponse
+      user.fullName = user.fullName || user.displayName || user.name || user.username || usernameFromResponse
     }
 
     user.wallet = resolvedWallet || user.wallet || { balance: 0, walletNumber: 'N/A' }

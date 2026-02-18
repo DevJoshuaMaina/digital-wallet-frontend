@@ -8,47 +8,42 @@
     <EmptyState
       v-else-if="!userStore.wallet"
       message="Wallet details are not available yet."
-      icon="👛"
+      icon="W"
     />
     <template v-else>
-    
-    <!-- Balance Card -->
-    <BaseCard>
-      <div class="text-center">
-        <h3 class="text-lg font-semibold mb-2">Current Balance</h3>
-        <p class="text-4xl font-bold text-primary-600 mb-4">₦{{ formatCurrency(userStore.balance) }}</p>
-        <p class="text-sm text-gray-600">Wallet: {{ userStore.wallet?.walletNumber }}</p>
-      </div>
-    </BaseCard>
-    
-    <!-- Add Money Form -->
-    <BaseCard>
-      <h3 class="text-lg font-semibold mb-4">Add Money</h3>
-      <form @submit.prevent="handleAddMoney" class="space-y-4">
-        <BaseInput v-model="addMoneyForm.amount" type="number" label="Amount" :error="errors.amount" placeholder="Enter amount to add" />
-        <BaseButton type="submit" variant="primary" :loading="loading">Add Money</BaseButton>
-      </form>
-    </BaseCard>
-    
-    <!-- Daily Limit -->
-    <BaseCard>
-      <h3 class="text-lg font-semibold mb-4">Daily Transaction Limit</h3>
-      <div class="flex items-center justify-between">
-        <span>Current Limit: ₦{{ formatCurrency(userStore.wallet?.dailyLimit || 0) }}</span>
-        <BaseButton variant="secondary" @click="showLimitModal = true">Update Limit</BaseButton>
-      </div>
-    </BaseCard>
-    
-    <!-- Update Limit Modal -->
-    <BaseModal :show="showLimitModal" title="Update Daily Limit" @close="showLimitModal = false">
-      <form @submit.prevent="handleUpdateLimit" class="space-y-4">
-        <BaseInput v-model="limitForm.limit" type="number" label="New Daily Limit" :error="errors.limit" placeholder="Enter new limit"/>
-        <div class="flex space-x-2">
-          <BaseButton type="submit" variant="primary" :loading="loading">Update</BaseButton>
-          <BaseButton variant="secondary" @click="showLimitModal = false">Cancel</BaseButton>
+      <BaseCard>
+        <div class="text-center">
+          <h3 class="text-lg font-semibold mb-2">Current Balance</h3>
+          <p class="text-4xl font-bold text-primary-600 mb-4">{{ formatCurrency(userStore.balance) }}</p>
+          <p class="text-sm text-gray-600">Wallet: {{ userStore.wallet?.walletNumber }}</p>
         </div>
-      </form>
-    </BaseModal>
+      </BaseCard>
+
+      <BaseCard>
+        <h3 class="text-lg font-semibold mb-4">Add Money</h3>
+        <form @submit.prevent="handleAddMoney" class="space-y-4">
+          <BaseInput v-model="addMoneyForm.amount" type="number" label="Amount" :error="errors.amount" placeholder="Enter amount to add" />
+          <BaseButton type="submit" variant="primary" :loading="loading">Add Money</BaseButton>
+        </form>
+      </BaseCard>
+
+      <BaseCard>
+        <h3 class="text-lg font-semibold mb-4">Daily Transaction Limit</h3>
+        <div class="flex items-center justify-between">
+          <span>Current Limit: {{ formatCurrency(userStore.wallet?.dailyLimit || 0) }}</span>
+          <BaseButton variant="secondary" @click="showLimitModal = true">Update Limit</BaseButton>
+        </div>
+      </BaseCard>
+
+      <BaseModal :show="showLimitModal" title="Update Daily Limit" @close="showLimitModal = false">
+        <form @submit.prevent="handleUpdateLimit" class="space-y-4">
+          <BaseInput v-model="limitForm.limit" type="number" label="New Daily Limit" :error="errors.limit" placeholder="Enter new limit"/>
+          <div class="flex space-x-2">
+            <BaseButton type="submit" variant="primary" :loading="loading">Update</BaseButton>
+            <BaseButton variant="secondary" @click="showLimitModal = false">Cancel</BaseButton>
+          </div>
+        </form>
+      </BaseModal>
     </template>
   </div>
 </template>
@@ -97,8 +92,9 @@ onMounted(async () => {
 function formatCurrency(amount) {
   return new Intl.NumberFormat('en-NG', {
     style: 'currency',
-    currency: 'NGN'
-  }).format(amount).replace('NGN', '₦')
+    currency: 'NGN',
+    currencyDisplay: 'narrowSymbol'
+  }).format(Number(amount || 0))
 }
 
 async function handleAddMoney() {
@@ -117,7 +113,7 @@ async function handleAddMoney() {
     loading.value = false
     return
   }
-  
+
   try {
     await walletApi.addMoney(userStore.wallet.id, addMoneyForm.value)
     userStore.setWallet({ ...userStore.wallet, balance: userStore.balance + parsedAmount })
@@ -150,7 +146,7 @@ async function handleUpdateLimit() {
     loading.value = false
     return
   }
-  
+
   try {
     await walletApi.setDailyLimit(userStore.wallet.id, parsedLimit)
     userStore.setWallet({ ...userStore.wallet, dailyLimit: parsedLimit })

@@ -10,7 +10,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import BaseCard from './base/BaseCard.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
 
 const props = defineProps({
   wallet: { type: Object, required: true }
@@ -20,5 +20,6 @@ const formattedBalance = computed(() =>
   new Intl.NumberFormat('en-NG').format(props.wallet.balance)
 )
 </script>
+
 
 

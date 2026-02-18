@@ -10,9 +10,9 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import BaseCard from './base/BaseCard.vue'
-import BaseSelect from './base/BaseSelect.vue'
-import BaseInput from './base/BaseInput.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseSelect from '@/components/base/BaseSelect.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 
 const props = defineProps({
   filters: { type: Object, default: () => ({ type: '', status: '', dateRange: '' }) }

@@ -7,8 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "run-s lint:*",
-    "lint:oxlint": "oxlint . --fix",
+    "test": "node tests/run-tests.mjs",
+    "test:smoke": "node tests/run-tests.mjs --smoke",
+    "lint": "npm run lint:oxlint && npm run lint:eslint",
+    "lint:oxlint": "oxlint src --fix",
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/"
   },

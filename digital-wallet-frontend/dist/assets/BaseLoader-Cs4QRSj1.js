@@ -1,1 +1,0 @@
-import{o as s,c as a,n as o}from"./index-DOXNdULf.js";const c={__name:"BaseLoader",props:{size:{type:String,default:"md"}},setup(e){const r={sm:"w-4 h-4",md:"w-6 h-6",lg:"w-8 h-8"};return(n,t)=>(s(),a("div",{class:o(["animate-spin rounded-full border-2 border-gray-300 border-t-primary-500",r[e.size]])},null,2))}};export{c as _};

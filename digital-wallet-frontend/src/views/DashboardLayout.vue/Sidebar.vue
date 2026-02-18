@@ -7,6 +7,7 @@
         <li><router-link to="/transfer" class="block p-2 rounded hover:bg-gray-100">Transfer</router-link></li>
         <li><router-link to="/merchants" class="block p-2 rounded hover:bg-gray-100">Merchants</router-link></li>
         <li><router-link to="/transactions" class="block p-2 rounded hover:bg-gray-100">Transactions</router-link></li>
+        <li><router-link to="/requests" class="block p-2 rounded hover:bg-gray-100">Requests</router-link></li>
         <li><router-link to="/profile" class="block p-2 rounded hover:bg-gray-100">Profile</router-link></li>
       </ul>
     </nav>

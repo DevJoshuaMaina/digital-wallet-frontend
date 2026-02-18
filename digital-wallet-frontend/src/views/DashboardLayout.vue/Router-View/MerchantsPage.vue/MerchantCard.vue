@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import BaseCard from './base/BaseCard.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
 
 defineProps({
   merchant: { type: Object, required: true }

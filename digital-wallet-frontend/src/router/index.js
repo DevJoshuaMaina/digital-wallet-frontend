@@ -54,6 +54,11 @@ const routes = [
         component: () => import('@/views/TransactionsPage.vue')
       },
       {
+        path: '/requests',
+        name: 'requests',
+        component: () => import('@/views/RequestsPage.vue')
+      },
+      {
         path: '/profile',
         name: 'profile',
         component: () => import('@/views/ProfilePage.vue')

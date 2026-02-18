@@ -12,7 +12,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import BaseLoader from './base/BaseLoader.vue'
+import BaseLoader from '@/components/base/BaseLoader.vue'
 import TransactionItem from './TransactionItem.vue'
 import EmptyState from './EmptyState.vue'
 
@@ -27,3 +27,4 @@ const hasTransactions = computed(() => visibleTransactions.value.length > 0)
 
 defineEmits(['transaction-click'])
 </script>
+

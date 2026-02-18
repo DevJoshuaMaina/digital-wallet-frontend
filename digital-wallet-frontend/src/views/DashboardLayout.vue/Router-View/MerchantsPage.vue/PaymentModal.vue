@@ -12,13 +12,13 @@
 <script setup>
 import { ref } from 'vue'
 import { useTransactionStore } from '@/stores/transaction'
-import BaseModal from './base/BaseModal.vue'
+import BaseModal from '@/components/base/BaseModal.vue'
 import AmountInput from './AmountInput.vue'
-import BaseInput from './base/BaseInput.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 import PinInput from './PinInput.vue'
-import BaseButton from './base/BaseButton.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
-const emit = defineEmits(['close', 'success'])
+const emit = defineEmits(['close', 'success', 'error'])
 
 const props = defineProps({
   merchant: { type: Object, required: true }
@@ -42,7 +42,7 @@ const handlePayment = async () => {
     emit('success')
   }
   catch (error) {
-    console.error('Payment failed:', error)
+    emit('error', error)
   }
   finally {
     loading.value = false

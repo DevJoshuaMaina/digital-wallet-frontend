@@ -17,6 +17,10 @@ export const API_ENDPOINTS = {
   MERCHANT_PAYMENT: '/transactions/merchant-payment',
   USER_TRANSACTIONS: (userId) => `/transactions/user/${userId}`,
   TRANSACTION_STATS: (userId) => `/transactions/user/${userId}/stats`,
+  REQUESTS: '/requests',
+  REQUEST_BY_ID: (id) => `/requests/${id}`,
+  INCOMING_REQUESTS: '/requests/incoming',
+  OUTGOING_REQUESTS: '/requests/outgoing',
   
   // Merchant endpoints
   MERCHANTS: '/merchants',

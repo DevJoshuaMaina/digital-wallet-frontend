@@ -14,7 +14,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useMerchantStore } from '@/stores/merchant'
-import BaseButton from './base/BaseButton.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const emit = defineEmits(['change'])
 
@@ -36,3 +36,4 @@ const formatCategoryLabel = (category) => {
     .join(' ')
 }
 </script>
+

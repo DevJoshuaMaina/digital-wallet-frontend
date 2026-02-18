@@ -1,21 +1,26 @@
 <template>
   <BaseCard title="Recent Transactions">
-    <div v-if="loading" class="text-center py-4">
+    <div v-if="transactionStore.loading" class="text-center py-4">
       <BaseLoader />
     </div>
-    <BaseAlert v-else-if="errorMessage" type="error" :message="errorMessage" />
-    <div v-else-if="transactions.length">
-      <TransactionItem v-for="transaction in transactions" :key="transaction.id" :transaction="transaction" @click="viewTransaction"/>
+    <BaseAlert v-else-if="transactionStore.error" type="error" :message="transactionStore.error" />
+    <div v-else-if="recentTransactions.length">
+      <TransactionItem
+        v-for="transaction in recentTransactions"
+        :key="transaction.id"
+        :transaction="transaction"
+        @click="viewTransaction"
+      />
       <router-link to="/transactions" class="text-primary-600 mt-4 block text-center">View All</router-link>
     </div>
-    <EmptyState v-else message="No recent transactions" icon="📭" />
+    <EmptyState v-else message="No recent transactions" icon="H" />
   </BaseCard>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed, watch } from 'vue'
 import { useUserStore } from '@/stores/user'
-import transactionApi from '@/services/transactionApi'
+import { useTransactionStore } from '@/stores/transaction'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseLoader from '@/components/base/BaseLoader.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
@@ -23,36 +28,48 @@ import TransactionItem from '@/views/DashboardLayout.vue/Router-View/Transaction
 import EmptyState from '@/components/EmptyState.vue'
 
 const userStore = useUserStore()
-const transactions = ref([])
-const loading = ref(true)
-const errorMessage = ref('')
+const transactionStore = useTransactionStore()
 
-onMounted(async () => {
-  const userId = userStore.currentUser?.id
-  if (!userId) {
-    loading.value = false
-    return
-  }
+const recentTransactions = computed(() => transactionStore.transactions.slice(0, 5))
+const getCurrentUserIdentifier = () =>
+  userStore.currentUser?.id ||
+  userStore.currentUser?.userId ||
+  userStore.currentUser?.user?.id ||
+  userStore.currentUser?.username ||
+  userStore.currentUser?.userName ||
+  userStore.wallet?.id ||
+  userStore.currentUser?.wallet?.id ||
+  null
 
-  try {
-    const response = await transactionApi.getTransactions(userId, { limit: 5 })
-    const records = Array.isArray(response)
-      ? response
-      : Array.isArray(response?.data)
-        ? response.data
-        : []
-    transactions.value = records
-  } 
-  catch (error) {
-    errorMessage.value = 'Unable to load recent transactions.'
-  }
-  finally {
-    loading.value = false
-  }
-})
+const fetchRecentTransactions = async () => {
+  const identifier = getCurrentUserIdentifier()
+  if (!identifier) return
+  await transactionStore.fetchTransactions(identifier, {
+    page: 0,
+    size: 10,
+    username: userStore.currentUser?.username || userStore.currentUser?.userName,
+    walletId: userStore.currentUser?.wallet?.id || userStore.wallet?.id,
+  })
+}
+
+watch(
+  () =>
+    [
+      userStore.currentUser?.id,
+      userStore.currentUser?.userId,
+      userStore.currentUser?.user?.id,
+      userStore.currentUser?.username,
+      userStore.currentUser?.userName,
+      userStore.wallet?.id,
+      userStore.currentUser?.wallet?.id
+    ].join('|'),
+  () => {
+    fetchRecentTransactions()
+  },
+  { immediate: true }
+)
 
 const viewTransaction = (transaction) => {
-  // Placeholder: Could open a modal or navigate
-  console.log('View transaction:', transaction)
+  void transaction
 }
 </script>

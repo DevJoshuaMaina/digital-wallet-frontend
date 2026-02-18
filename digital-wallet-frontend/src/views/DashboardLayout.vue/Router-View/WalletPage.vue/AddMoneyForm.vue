@@ -14,10 +14,10 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import walletApi from '@/services/walletApi'
 import { handleApiError } from '@/utils/errorHandler'
-import BaseCard from './base/BaseCard.vue'
-import BaseInput from './base/BaseInput.vue'
-import BaseSelect from './base/BaseSelect.vue'
-import BaseButton from './base/BaseButton.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseSelect from '@/components/base/BaseSelect.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const emit = defineEmits(['success'])
 

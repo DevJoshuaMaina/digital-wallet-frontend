@@ -3,7 +3,7 @@
     <div class="space-y-4">
       <p><strong>Reference:</strong> {{ transaction.reference }}</p>
       <p><strong>Type:</strong> {{ transaction.type }}</p>
-      <p><strong>Amount:</strong> ₦{{ formattedAmount }}</p>
+      <p><strong>Amount:</strong> NGN {{ formattedAmount }}</p>
       <p><strong>Description:</strong> {{ transaction.description }}</p>
       <p><strong>Date:</strong> {{ formattedDate }}</p>
       <p><strong>Status:</strong> {{ transaction.status }}</p>
@@ -13,7 +13,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import BaseModal from './base/BaseModal.vue'
+import BaseModal from '@/components/base/BaseModal.vue'
 
 const props = defineProps({
   transaction: { type: Object, required: true }
@@ -22,10 +22,13 @@ const props = defineProps({
 const modalTitle = computed(() => 'Transaction Details')
 
 const formattedAmount = computed(() =>
-  new Intl.NumberFormat('en-NG').format(Math.abs(props.transaction.amount))
+  new Intl.NumberFormat('en-NG').format(Math.abs(Number(props.transaction.amount || 0)))
 )
 
-const formattedDate = computed(() =>
-  new Date(props.transaction.date).toLocaleString()
-)
+const formattedDate = computed(() => {
+  const dateValue = props.transaction.date || props.transaction.timestamp || props.transaction.createdAt
+  if (!dateValue) return 'N/A'
+  const parsed = new Date(dateValue)
+  return Number.isNaN(parsed.getTime()) ? 'N/A' : parsed.toLocaleString()
+})
 </script>

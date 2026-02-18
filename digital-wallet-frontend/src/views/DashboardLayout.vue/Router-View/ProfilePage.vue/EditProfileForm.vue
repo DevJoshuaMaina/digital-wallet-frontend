@@ -13,9 +13,9 @@
 import { ref } from 'vue'
 import userApi from '@/services/userApi'
 import { handleApiError } from '@/utils/errorHandler'
-import BaseCard from './base/BaseCard.vue'
-import BaseInput from './base/BaseInput.vue'
-import BaseButton from './base/BaseButton.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const emit = defineEmits(['update'])
 
@@ -42,3 +42,4 @@ const handleUpdate = async () => {
   }
 }
 </script>
+

@@ -1,9 +1,9 @@
 <template>
   <BaseCard title="Daily Limit Settings">
     <div class="mb-4">
-      <p>Current Daily Limit: ₦{{ formatBalance(wallet.dailyLimit) }}</p>
-      <p>Spent Today: ₦{{ formatBalance(wallet.spentToday) }}</p>
-      <p>Remaining: ₦{{ formatBalance(wallet.dailyLimit - wallet.spentToday) }}</p>
+      <p>Current Daily Limit: NGN {{ formatBalance(wallet.dailyLimit) }}</p>
+      <p>Spent Today: NGN {{ formatBalance(wallet.spentToday) }}</p>
+      <p>Remaining: NGN {{ formatBalance(wallet.dailyLimit - wallet.spentToday) }}</p>
     </div>
     <form @submit.prevent="updateLimit">
       <BaseInput v-model="newLimit" type="number" label="New Daily Limit" placeholder="Enter new limit"/>
@@ -16,18 +16,22 @@
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import walletApi from '@/services/walletApi'
-import BaseCard from './base/BaseCard.vue'
-import BaseInput from './base/BaseInput.vue'
-import BaseButton from './base/BaseButton.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
-const emit = defineEmits(['update'])
+defineProps({
+  wallet: { type: Object, required: true }
+})
+
+const emit = defineEmits(['update', 'error'])
 
 const userStore = useUserStore()
 const newLimit = ref('')
 const loading = ref(false)
 
 const formatBalance = (balance) => {
-  return new Intl.NumberFormat('en-NG').format(balance)
+  return new Intl.NumberFormat('en-NG').format(Number(balance || 0))
 }
 
 const updateLimit = async () => {
@@ -35,10 +39,10 @@ const updateLimit = async () => {
   try {
     await walletApi.setDailyLimit(userStore.wallet.id, parseFloat(newLimit.value))
     emit('update')
-  } 
+  }
   catch (error) {
-    console.error('Error updating limit:', error)
-  } 
+    emit('error', error)
+  }
   finally {
     loading.value = false
   }

@@ -93,11 +93,22 @@
                     })
                     const token = loginResponse?.token || loginResponse?.data?.token
                     const usernameFromResponse = loginResponse?.username || loginResponse?.data?.username || userData.value.username
+                    const idFromResponse = loginResponse?.id || loginResponse?.userId || loginResponse?.data?.id || loginResponse?.data?.userId
                     if (token) {
                         userStore.setToken(token)
                     }
 
                     let user = loginResponse?.user || loginResponse?.data?.user
+                    if (!user && idFromResponse) {
+                        try {
+                            const userProfileById = await userApi.getUserByID(idFromResponse)
+                            user = userProfileById?.data || userProfileById?.user || userProfileById
+                        }
+                        catch {
+                            // Try username lookup fallback below.
+                        }
+                    }
+
                     if (!user && usernameFromResponse) {
                         try {
                             const userProfile = await userApi.getUserByUsername(usernameFromResponse)
@@ -112,9 +123,15 @@
 
                     if (!user) {
                         user = {
+                            id: idFromResponse || null,
                             username: usernameFromResponse,
                             fullName: usernameFromResponse
                         }
+                    }
+                    else {
+                        user.id = user.id ?? user.userId ?? idFromResponse ?? null
+                        user.username = user.username || user.userName || usernameFromResponse
+                        user.fullName = user.fullName || user.displayName || user.name || user.username || usernameFromResponse
                     }
 
                     user.wallet = resolvedWallet || user.wallet || { balance: 0, walletNumber: 'N/A' }

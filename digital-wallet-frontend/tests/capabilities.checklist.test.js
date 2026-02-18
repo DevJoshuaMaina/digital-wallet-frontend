@@ -1,0 +1,95 @@
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+const read = (path) => readFileSync(resolve(path), 'utf8')
+const includesAll = (content, snippets) => snippets.every((snippet) => content.includes(snippet))
+
+export async function run() {
+  const registerPage = read('src/views/AuthLayout.vue/RegisterPage.vue')
+  const loginPage = read('src/views/AuthLayout.vue/LoginPage.vue')
+  const router = read('src/router/index.js')
+  const topBar = read('src/views/DashboardLayout.vue/TopBar.vue')
+  const dashboard = read('src/views/DashboardPage.vue')
+  const statsChart = read('src/views/DashboardLayout.vue/Router-View/DashboardPage.vue/StatsChart.vue')
+  const recentTransactions = read('src/views/DashboardLayout.vue/Router-View/DashboardPage.vue/RecentTransactions.vue')
+  const walletPage = read('src/views/WalletPage.vue')
+  const transferPage = read('src/views/TransferPage.vue')
+  const merchantsPage = read('src/views/MerchantsPage.vue')
+  const transactionsPage = read('src/views/TransactionsPage.vue')
+  const dashboardLayout = read('src/layouts/DashboardLayout.vue')
+  const mobileNav = read('src/views/DashboardLayout.vue/MobileNav.vue')
+  const transactionApi = read('src/services/transactionApi.js')
+  const sidebar = read('src/views/DashboardLayout.vue/Sidebar.vue')
+  const requestsPage = read('src/views/RequestsPage.vue')
+
+  assert.equal(includesAll(registerPage, ['await userApi.register', "router.push('/login')"]), true)
+  assert.equal(registerPage.includes('already exists|duplicate/i'), true)
+  assert.equal(registerPage.includes('Enter a valid email address'), true)
+  assert.equal(includesAll(loginPage, ['await userApi.login', "router.push('/dashboard')"]), true)
+  assert.equal(loginPage.includes('general: err.message'), true)
+  assert.equal(includesAll(topBar, ['userStore.logout()', "router.push('/login')"]), true)
+  assert.equal(
+    includesAll(router, ['to.meta.requiresAuth && !userStore.isAuthenticated', "next('/login')"]),
+    true
+  )
+
+  assert.equal(dashboard.includes('<WalletCard :wallet="userStore.wallet"'), true)
+  assert.equal(includesAll(recentTransactions, ['useTransactionStore', 'v-for="transaction in recentTransactions"']), true)
+  assert.equal(includesAll(dashboard, ["router.push('/wallet')", "router.push('/transfer')", "router.push('/merchants')"]), true)
+  assert.equal(dashboard.includes('requestStore.createRequest'), true)
+  assert.equal(includesAll(dashboard, ['Request From', 'Send To']), true)
+  assert.equal(includesAll(statsChart, ['transactionApi.getTransactionStats', 'source.totalSent', 'source.totalReceived']), true)
+
+  assert.equal(walletPage.includes('if (!parsedAmount || parsedAmount <= 0)'), true)
+  assert.equal(walletPage.includes('await walletApi.addMoney'), true)
+  assert.equal(walletPage.includes('balance: userStore.balance + parsedAmount'), true)
+  assert.equal(walletPage.includes('Current Limit:'), true)
+  assert.equal(walletPage.includes('handleApiError(error)'), true)
+
+  assert.equal(transferPage.includes('await userApi.getUserByUsername'), true)
+  assert.equal(transferPage.includes('v-if="recipient"'), true)
+  assert.equal(transferPage.includes('if (!parsedAmount || parsedAmount <= 0)'), true)
+  assert.equal(transferPage.includes('/^\\d{4,6}$/'), true)
+  assert.equal(transferPage.includes('Confirm Transfer'), true)
+  assert.equal(transferPage.includes('await transactionStore.createTransfer'), true)
+  assert.equal(transferPage.includes('toUserId:'), true)
+  assert.equal(transferPage.includes('toWalletId:'), true)
+  assert.equal(transferPage.includes('balance: userStore.balance - parsedAmount'), true)
+  assert.equal(transferPage.includes('reference'), true)
+  assert.equal(transferPage.includes('Insufficient balance for this transfer.'), true)
+  assert.equal(transferPage.includes('Select a valid recipient before transferring.'), true)
+
+  assert.equal(includesAll(merchantsPage, ['merchantStore.fetchMerchants()', 'grid gap-4 md:grid-cols-2 lg:grid-cols-3']), true)
+  assert.equal(merchantsPage.includes('selectedCategory.value === \'ALL\''), true)
+  assert.equal(merchantsPage.includes('merchantName.includes(query) || merchantCode.includes(query)'), true)
+  assert.equal(merchantsPage.includes('showPaymentModal.value = true'), true)
+  assert.equal(merchantsPage.includes('await transactionStore.createMerchantPayment'), true)
+  assert.equal(merchantsPage.includes('showReceiptModal.value = true'), true)
+
+  assert.equal(includesAll(transactionsPage, ['size: pageSize', 'transactionStore.pagination', 'fetchTransactionsForCurrentUser']), true)
+  assert.equal(includesAll(transactionsPage, ['filters.type', 'filters.status', 'filters.startDate', 'filters.endDate']), true)
+  assert.equal(transactionsPage.includes('Transaction Details'), true)
+  assert.equal(includesAll(transactionsPage, ['changePage(', 'v-if="!transactionStore.pagination.last"']), true)
+  assert.equal(transactionsPage.includes('No transactions found'), true)
+  assert.equal(transactionApi.includes('walletId: normalizedWalletId'), true)
+  assert.equal(transactionApi.includes('username: normalizedUsername'), true)
+  assert.equal(transactionApi.includes('/username/${ identifier }'), true)
+  assert.equal(transactionApi.includes('/transfers'), true)
+  assert.equal(transactionApi.includes('${ API_ENDPOINTS.WALLETS }/transfer'), true)
+  assert.equal(router.includes("path: '/requests'"), true)
+  assert.equal(sidebar.includes('to="/requests"'), true)
+  assert.equal(mobileNav.includes('to="/requests"'), true)
+  assert.equal(includesAll(requestsPage, ['Incoming', 'Outgoing', 'markAsPaid', 'declineRequest']), true)
+
+  assert.equal(includesAll(dashboardLayout, ['hidden md:block', 'md:hidden']), true)
+  assert.equal(includesAll(mobileNav, ['min-h-11', 'min-w-14', 'text-sm']), true)
+
+  assert.equal(recentTransactions.includes('loading'), true)
+  assert.equal(statsChart.includes('loading'), true)
+  assert.equal(walletPage.includes('loading'), true)
+  assert.equal(transferPage.includes('loading'), true)
+  assert.equal(merchantsPage.includes('loading'), true)
+  assert.equal(transactionsPage.includes('transactionStore.loading'), true)
+  assert.equal(recentTransactions.includes('console.log('), false)
+}

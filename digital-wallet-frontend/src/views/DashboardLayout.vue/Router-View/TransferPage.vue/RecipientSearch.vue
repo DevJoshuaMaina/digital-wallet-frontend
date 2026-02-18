@@ -14,8 +14,8 @@
 <script setup>
 import { ref } from 'vue'
 import userApi from '@/services/userApi'
-import BaseCard from './base/BaseCard.vue'
-import BaseInput from './base/BaseInput.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 
 const emit = defineEmits(['select'])
 
@@ -27,8 +27,9 @@ const searchUsers = async () => {
   try {
     const response = await userApi.searchUsers(query.value)
     results.value = response
-  } catch (error) {
-    console.error('Error searching users:', error)
+  } catch {
+    results.value = []
   }
 }
 </script>
+
