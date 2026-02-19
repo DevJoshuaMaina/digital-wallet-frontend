@@ -3,7 +3,7 @@
     <div class="space-y-4">
       <p><strong>Reference:</strong> {{ transaction.reference }}</p>
       <p><strong>Type:</strong> {{ transaction.type }}</p>
-      <p><strong>Amount:</strong> NGN {{ formattedAmount }}</p>
+      <p><strong>Amount:</strong> KES {{ formattedAmount }}</p>
       <p><strong>Description:</strong> {{ transaction.description }}</p>
       <p><strong>Date:</strong> {{ formattedDate }}</p>
       <p><strong>Status:</strong> {{ transaction.status }}</p>
@@ -22,7 +22,7 @@ const props = defineProps({
 const modalTitle = computed(() => 'Transaction Details')
 
 const formattedAmount = computed(() =>
-  new Intl.NumberFormat('en-NG').format(Math.abs(Number(props.transaction.amount || 0)))
+  new Intl.NumberFormat('en-KE').format(Math.abs(Number(props.transaction.amount || 0)))
 )
 
 const formattedDate = computed(() => {

@@ -3,10 +3,10 @@
     <h3 class="text-lg font-semibold mb-4">Confirm Transfer</h3>
     <div class="mb-4">
       <p><strong>To:</strong> {{ recipient.fullName }}</p>
-      <p><strong>Amount:</strong> NGN {{ formatAmount(amount) }}</p>
+      <p><strong>Amount:</strong> KES {{ formatAmount(amount) }}</p>
       <p><strong>Description:</strong> {{ description || 'No description' }}</p>
-      <p><strong>Fee:</strong> NGN 0.00</p>
-      <p><strong>Total:</strong> NGN {{ formatAmount(amount) }}</p>
+      <p><strong>Fee:</strong> KES 0.00</p>
+      <p><strong>Total:</strong> KES {{ formatAmount(amount) }}</p>
     </div>
     <PinInput @complete="pin = $event" />
     <div class="flex gap-4 mt-4">
@@ -35,7 +35,7 @@ const transactionStore = useTransactionStore()
 const pin = ref('')
 
 const formatAmount = (amount) => {
-  return new Intl.NumberFormat('en-NG').format(Number(amount || 0))
+  return new Intl.NumberFormat('en-KE').format(Number(amount || 0))
 }
 
 const confirmTransfer = async () => {

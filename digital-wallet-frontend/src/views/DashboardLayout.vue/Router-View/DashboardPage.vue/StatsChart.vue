@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <BaseCard title="Transaction Stats">
     <div v-if="loading" class="py-4 text-center">
       <BaseLoader />
@@ -9,8 +9,8 @@
         <canvas ref="chartCanvas" aria-label="Transaction statistics chart" role="img"></canvas>
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <StatsCard label="Total Sent" :value="'NGN ' + formatNumber(stats.sent)" icon="S" color="red" />
-        <StatsCard label="Total Received" :value="'NGN ' + formatNumber(stats.received)" icon="R" color="green" />
+        <StatsCard label="Total Sent" :value="'KES ' + formatNumber(stats.sent)" icon="S" color="red" />
+        <StatsCard label="Total Received" :value="'KES ' + formatNumber(stats.received)" icon="R" color="green" />
       </div>
       <p class="text-sm text-gray-500">{{ chartSummary }}</p>
     </div>
@@ -445,7 +445,7 @@ onBeforeUnmount(() => {
   destroyChart()
 })
 
-const formatNumber = (num) => new Intl.NumberFormat('en-NG').format(num)
+const formatNumber = (num) => new Intl.NumberFormat('en-KE').format(num)
 </script>
 
 <style scoped>

@@ -132,9 +132,9 @@ watch(
 )
 
 const formatCurrency = (amount) =>
-  new Intl.NumberFormat('en-NG', {
+  new Intl.NumberFormat('en-KE', {
     style: 'currency',
-    currency: 'NGN',
+    currency: 'KES',
     currencyDisplay: 'narrowSymbol'
   }).format(Number(amount || 0))
 

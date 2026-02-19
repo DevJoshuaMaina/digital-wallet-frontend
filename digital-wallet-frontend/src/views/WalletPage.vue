@@ -90,9 +90,9 @@ onMounted(async () => {
 })
 
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-NG', {
+  return new Intl.NumberFormat('en-KE', {
     style: 'currency',
-    currency: 'NGN',
+    currency: 'KES',
     currencyDisplay: 'narrowSymbol'
   }).format(Number(amount || 0))
 }

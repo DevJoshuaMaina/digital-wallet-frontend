@@ -1,9 +1,9 @@
 <template>
   <BaseCard title="Daily Limit Settings">
     <div class="mb-4">
-      <p>Current Daily Limit: NGN {{ formatBalance(wallet.dailyLimit) }}</p>
-      <p>Spent Today: NGN {{ formatBalance(wallet.spentToday) }}</p>
-      <p>Remaining: NGN {{ formatBalance(wallet.dailyLimit - wallet.spentToday) }}</p>
+      <p>Current Daily Limit: KES {{ formatBalance(wallet.dailyLimit) }}</p>
+      <p>Spent Today: KES {{ formatBalance(wallet.spentToday) }}</p>
+      <p>Remaining: KES {{ formatBalance(wallet.dailyLimit - wallet.spentToday) }}</p>
     </div>
     <form @submit.prevent="updateLimit">
       <BaseInput v-model="newLimit" type="number" label="New Daily Limit" placeholder="Enter new limit"/>
@@ -31,7 +31,7 @@ const newLimit = ref('')
 const loading = ref(false)
 
 const formatBalance = (balance) => {
-  return new Intl.NumberFormat('en-NG').format(Number(balance || 0))
+  return new Intl.NumberFormat('en-KE').format(Number(balance || 0))
 }
 
 const updateLimit = async () => {

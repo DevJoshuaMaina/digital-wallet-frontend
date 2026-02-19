@@ -17,7 +17,7 @@ const props = defineProps({
 })
 
 const formattedBalance = computed(() =>
-  new Intl.NumberFormat('en-NG').format(props.wallet.balance)
+  new Intl.NumberFormat('en-KE').format(props.wallet.balance)
 )
 </script>
 

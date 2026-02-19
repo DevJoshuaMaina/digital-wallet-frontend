@@ -62,7 +62,7 @@
           </div>
           <div>
             <p class="text-sm text-gray-600">Amount</p>
-            <p class="font-medium">NGN {{ formatAmount(selectedTransaction.amount) }}</p>
+            <p class="font-medium">KES {{ formatAmount(selectedTransaction.amount) }}</p>
           </div>
           <div>
             <p class="text-sm text-gray-600">Status</p>
@@ -208,7 +208,7 @@ function formatDate(dateString) {
 }
 
 function formatAmount(amount) {
-  return Number(amount || 0).toLocaleString('en-NG')
+  return Number(amount || 0).toLocaleString('en-KE')
 }
 
 function normalizeToken(value) {

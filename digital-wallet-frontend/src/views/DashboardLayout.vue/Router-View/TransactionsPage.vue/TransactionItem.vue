@@ -10,7 +10,7 @@
         <p class="text-xs text-gray-500">{{ counterpartyLabel }}: {{ counterpartyValue }}</p>
       </div>
     </div>
-    <p :class="['font-bold', amountClass]">NGN {{ formattedAmount }}</p>
+    <p :class="['font-bold', amountClass]">KES {{ formattedAmount }}</p>
   </div>
 </template>
 

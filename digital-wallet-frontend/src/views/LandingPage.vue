@@ -3,8 +3,8 @@
     <nav class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center p-6">
       <h1 class="text-2xl font-bold text-center sm:text-left">Digital Wallet</h1>
       <div class="text-center sm:text-right">
-        <router-link to="/login" class="mr-4">LOGIN</router-link>
-        <router-link to="/register" class="btn-primary">REGISTER</router-link>
+        <router-link to="/login" class="mr-4">Login</router-link>
+        <router-link to="/register" class="btn-primary">Register</router-link>
       </div>
     </nav>
     <section class="text-center py-16 px-4 sm:py-20">

@@ -8,7 +8,7 @@
       placeholder="0.00"
       @input="formatInput"
     />
-    <p class="text-gray-500 mt-2">Available: ₦{{ formatCurrency(max) }}</p>
+    <p class="text-gray-500 mt-2">Available: KES {{ formatCurrency(max) }}</p>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ const emit = defineEmits(['update:modelValue'])
 const localValue = ref(props.modelValue)
 
 const formatCurrency = (value) => {
-  return new Intl.NumberFormat('en-NG').format(value)
+  return new Intl.NumberFormat('en-KE').format(value)
 }
 
 const formatInput = () => {

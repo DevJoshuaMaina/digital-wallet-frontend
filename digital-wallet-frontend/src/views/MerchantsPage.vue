@@ -37,7 +37,7 @@
         >
           <div class="flex items-center space-x-3">
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100">
-              <span class="text-xl">M</span>
+              <span class="text-xl">🏪</span>
             </div>
             <div>
               <h4 class="font-medium">{{ merchantDisplayName(merchant) }}</h4>
@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <EmptyState v-else message="No merchants available in this category." icon="M" />
+      <EmptyState v-else message="No merchants available in this category." icon="🏪" />
     </BaseCard>
 
     <BaseModal :show="showPaymentModal" title="Pay Merchant" @close="closePaymentModal">
@@ -153,9 +153,9 @@ function closePaymentModal() {
 }
 
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-NG', {
+  return new Intl.NumberFormat('en-KE', {
     style: 'currency',
-    currency: 'NGN',
+    currency: 'KES',
     currencyDisplay: 'narrowSymbol'
   }).format(Number(amount || 0))
 }

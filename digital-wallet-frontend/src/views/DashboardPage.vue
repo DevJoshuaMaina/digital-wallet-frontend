@@ -6,10 +6,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
       <WalletCard :wallet="userStore.wallet" @add-money="showAddMoney" @transfer="goToTransfer" />
       <div class="grid grid-cols-2 gap-4">
-        <QuickActionButton icon="+" label="Add Money" color="green" @click="showAddMoney" />
-        <QuickActionButton icon=">" label="Send Money" color="blue" @click="goToTransfer" />
-        <QuickActionButton icon="M" label="Pay Merchant" color="purple" @click="goToMerchants" />
-        <QuickActionButton icon="R" label="Request Money" color="orange" @click="goToRequest" />
+        <QuickActionButton icon="💰" label="Add Money" color="green" @click="showAddMoney" />
+        <QuickActionButton icon="📤" label="Send Money" color="blue" @click="goToTransfer" />
+        <QuickActionButton icon="🏪" label="Pay Merchant" color="purple" @click="goToMerchants" />
+        <QuickActionButton icon="📥" label="Request Money" color="orange" @click="goToRequest" />
       </div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -131,9 +131,9 @@ const createRequestMessage = async () => {
     return
   }
 
-  const amountLabel = new Intl.NumberFormat('en-NG', {
+  const amountLabel = new Intl.NumberFormat('en-KE', {
     style: 'currency',
-    currency: 'NGN',
+    currency: 'KES',
     currencyDisplay: 'narrowSymbol'
   }).format(amount)
 
