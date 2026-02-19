@@ -8,8 +8,8 @@
 
 <script setup>
     defineProps({
-        currentPage: { type: Number, default: 1},
-        totalPages: { type: Number, default: 1}
+        currentPage: { type: Number, default: 1 },
+        totalPages: { type: Number, default: 1 }
     })
 
     defineEmits([ 'page-change' ])

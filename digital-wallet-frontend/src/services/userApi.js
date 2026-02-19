@@ -2,13 +2,21 @@ import apiClient from "./api"
 import { API_ENDPOINTS } from "@/config/api"
 
 export default {
-    register(userData) {
-        return apiClient.post(API_ENDPOINTS.USERS, userData)
+    async register(userData) {
+        try {
+            return await apiClient.post(API_ENDPOINTS.USERS, userData)
+        }
+        catch (error) {
+            if (error.response?.status === 404 || error.response?.status === 405 || error.response?.status === 403) {
+                return apiClient.post(`${ API_ENDPOINTS.USERS }/register`, userData)
+            }
+            throw error
+        }
     },
 
     login(credentials){
         //Assuming a simple login endpoint; adjust if backend has one
-        return apiClient.post(`${API_ENDPOINTS.USERS}/login`, credentials)
+        return apiClient.post(`${ API_ENDPOINTS.USERS }/login`, credentials)
     },
 
     getUserByID(id) {
@@ -24,6 +32,6 @@ export default {
     },
 
     searchUsers(query){
-        return apiClient.get(`${API_ENDPOINTS.USERS}/search`, { params: { query } })
+        return apiClient.get(`${ API_ENDPOINTS.USERS }/search`, { params: { query } })
     }
 }

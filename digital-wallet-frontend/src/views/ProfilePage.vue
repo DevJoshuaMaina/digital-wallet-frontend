@@ -1,6 +1,9 @@
 <template>
   <div class="space-y-6">
     <h1 class="text-2xl font-bold">Profile Settings</h1>
+    <BaseAlert v-if="errors.general" type="error" :message="errors.general" />
+    <EmptyState v-if="!userStore.currentUser" message="No profile data available. Please login again." icon="👤" />
+    <template v-else>
     
     <!-- User Info -->
     <BaseCard>
@@ -33,36 +36,10 @@
     <BaseCard>
       <h3 class="text-lg font-semibold mb-4">Edit Profile</h3>
       <form @submit.prevent="handleUpdateProfile" class="space-y-4">
-        <BaseInput
-          v-model="profileForm.fullName"
-          label="Full Name"
-          :error="errors.fullName"
-          placeholder="Enter your full name"
-        />
-        
-        <BaseInput
-          v-model="profileForm.email"
-          type="email"
-          label="Email"
-          :error="errors.email"
-          placeholder="Enter your email"
-        />
-        
-        <BaseInput
-          v-model="profileForm.phoneNumber"
-          type="tel"
-          label="Phone Number"
-          :error="errors.phoneNumber"
-          placeholder="Enter your phone number"
-        />
-        
-        <BaseButton
-          type="submit"
-          variant="primary"
-          :loading="loading"
-        >
-          Update Profile
-        </BaseButton>
+        <BaseInput v-model="profileForm.fullName" label="Full Name" :error="errors.fullName" placeholder="Enter your full name"/>
+        <BaseInput v-model="profileForm.email" type="email" label="Email" :error="errors.email" placeholder="Enter your email"/>
+        <BaseInput v-model="profileForm.phoneNumber" type="tel" label="Phone Number" :error="errors.phoneNumber" placeholder="Enter your phone number"/>
+        <BaseButton type="submit" variant="primary" :loading="loading">Update Profile</BaseButton>
       </form>
     </BaseCard>
     
@@ -73,6 +50,7 @@
         <BaseButton variant="danger" @click="handleLogout">Logout</BaseButton>
       </div>
     </BaseCard>
+    </template>
   </div>
 </template>
 
@@ -80,14 +58,18 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useToastStore } from '@/stores/toast'
 import userApi from '@/services/userApi'
 import { handleApiError } from '@/utils/errorHandler'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
+import EmptyState from '@/components/EmptyState.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
+const toastStore = useToastStore()
 
 const profileForm = ref({
   fullName: '',
@@ -108,30 +90,37 @@ onMounted(() => {
 })
 
 function formatDate(dateString) {
+  if (!dateString) return 'N/A'
   return new Date(dateString).toLocaleDateString()
 }
 
 async function handleUpdateProfile() {
+  if (!userStore.currentUser?.id) {
+    errors.value = { general: 'User profile is not available. Please login again.' }
+    return
+  }
+
   loading.value = true
   errors.value = {}
   
   try {
     const response = await userApi.updateUser(userStore.currentUser.id, profileForm.value)
-    userStore.setUser(response.data)
-  } catch (error) {
+    userStore.setUser(response?.data || response)
+    toastStore.success('Profile updated successfully.')
+  }
+  catch (error) {
     const apiError = handleApiError(error)
-    if (apiError.data && typeof apiError.data === 'object') {
-      errors.value = apiError.data
-    } else {
-      errors.value = { general: apiError.message }
-    }
-  } finally {
+    errors.value = { ...apiError.fieldErrors, general: apiError.message }
+    toastStore.error(apiError.message)
+  }
+  finally {
     loading.value = false
   }
 }
 
 function handleLogout() {
   userStore.logout()
+  toastStore.info('You have been logged out.')
   router.push('/login')
 }
-</script>
+</script> 

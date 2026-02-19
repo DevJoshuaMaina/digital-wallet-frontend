@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-    <RouterView />
+    <router-view />
+    <BaseToastContainer />
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
+import BaseToastContainer from '@/components/base/BaseToastContainer.vue'
 </script>
-
-<style scoped>
-#app {
-  min-height: 100vh;
-}
-</style>

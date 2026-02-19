@@ -8,12 +8,15 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useTransactionStore } from '@/stores/transaction'
 import BaseButton from '@/components/base/BaseButton.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
+const transactionStore = useTransactionStore()
 
 const logout = () => {
+  transactionStore.resetState()
   userStore.logout()
   router.push('/login')
 }

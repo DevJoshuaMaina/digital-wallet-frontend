@@ -1,23 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import LandingPage from '@/views/LandingPage.vue'
+import LoginPage from '@/views/AuthLayout.vue/LoginPage.vue'
+import RegisterPage from '@/views/AuthLayout.vue/RegisterPage.vue'
 
 const routes = [ 
   {
     path: '/',
     name: 'landing',
-    component: () => import('@/views/LandingPage.vue'),
+    component: LandingPage,
     meta: { requiresAuth: false }
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/LoginPage.vue'),
+    component: LoginPage,
     meta: { requiresAuth: false }
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/RegisterPage.vue'),
+    component: RegisterPage,
     meta: { requiresAuth: false }
   },
   {
@@ -49,6 +52,11 @@ const routes = [
         path: '/transactions',
         name: 'transactions',
         component: () => import('@/views/TransactionsPage.vue')
+      },
+      {
+        path: '/requests',
+        name: 'requests',
+        component: () => import('@/views/RequestsPage.vue')
       },
       {
         path: '/profile',

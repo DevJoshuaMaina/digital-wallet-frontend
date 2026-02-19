@@ -4,7 +4,7 @@
     <div class="flex">
       <Sidebar class="hidden md:block" />
       <MobileNav class="md:hidden" />
-      <main class="flex-1 p-6">
+      <main class="flex-1 p-4 md:p-6 pb-24 md:pb-6">
         <router-view />
       </main>
     </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import TopBar from '@/components/TopBar.vue'
-import Sidebar from '@/components/Sidebar.vue'
-import MobileNav from '@/components/MobileNav.vue'
+import TopBar from '@/views/DashboardLayout.vue/TopBar.vue'
+import Sidebar from '@/views/DashboardLayout.vue/Sidebar.vue'
+import MobileNav from '@/views/DashboardLayout.vue/MobileNav.vue'
 </script>

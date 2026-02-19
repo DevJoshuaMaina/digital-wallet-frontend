@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { API_BASE_URL } from '@/config/api'
 import { useUserStore } from '@/stores/user'
+import { useToastStore } from '@/stores/toast'
 import router from '@/router'
 
 const apiClient = axios.create({
@@ -13,10 +14,10 @@ const apiClient = axios.create({
 //Request interceptor
 apiClient.interceptors.request.use(
     (config) => {
-        //Add auth token if available
+        // Add auth token if available
         const userStore = useUserStore()
-        if (userStore.isAuthenticated) {
-            //config.headers.Authorization = `Bearer ${token}`            
+        if (userStore.token) {
+            config.headers.Authorization = `Bearer ${userStore.token}`
         }
         return config
     },
@@ -29,7 +30,9 @@ apiClient.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             const userStore = useUserStore()
+            const toastStore = useToastStore()
             userStore.logout()
+            toastStore.warning('Your session has expired. Please login again.')
             router.push('/login')
         }
         return Promise.reject(error)
