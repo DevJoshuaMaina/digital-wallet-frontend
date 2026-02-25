@@ -122,6 +122,22 @@ All protected endpoints require Authorization: Bearer <jwt-token> header.
 - View History: Filter and paginate transactions.
 - Profile: Update details or logout.
 
+## Live Demo
+
+- **Frontend**: https://digital-wallet-frontend-br2s.vercel.app/
+- **Backend API**: https://digital-wallet-springboot-production.up.railway.app/
+- **API Docs**: https://digital-wallet-springboot-production.up.railway.app/swagger-ui/index.html#/
+
+## Deployment
+
+The application is deployed using:
+- **Frontend**: Vercel
+- **Backend**: Railway
+- **Database**: Railway PostgreSQL
+
+## Demo Video Link
+- **Frontend**: https://drive.google.com/file/d/1nXgfcOYbW-z63MeSBv3VRD64wH6LvFzT/view?usp=sharing
+- **API**: https://drive.google.com/file/d/1nbvIefZxFDZ5Lg1JY5o2XIw3Uv3YvbJI/view?usp=sharing
 
 ## Author
 Joshua Maina Njomo - dev.joshuamaina@gmail.com
