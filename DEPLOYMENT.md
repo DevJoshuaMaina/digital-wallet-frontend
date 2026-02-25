@@ -3,7 +3,7 @@
 ## Application URLs
 
 ### Frontend
-- Production URL: https://digital-wallet-frontend-br2s-git-main-devjoshuamainas-projects.vercel.app/
+- Production URL: https://digital-wallet-frontend-br2s.vercel.app/
 - Repository: https://github.com/DevJoshuaMaina/digital-wallet-frontend
 
 ### Backend
